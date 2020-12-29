@@ -1,5 +1,6 @@
-// import React from 'react';
-import React, { useState } from 'react';
+import React from 'react';
+
+//import React, { useState } from 'react';
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 // import { connect } from "react-redux";
@@ -19,10 +20,10 @@ const LoginForm = () => {
   //     dispatch(userActions.logout()); 
   // }, []);
 
-  const handleChange = (e) => {
-      const { name, value } = e.target;
-      setInputs(inputs => ({ ...inputs, [name]: value }));
-  };
+  // const handleChange = (e) => {
+  //     const { name, value } = e.target;
+  //     setInputs(inputs => ({ ...inputs, [name]: value }));
+  // };
 
 
   return(

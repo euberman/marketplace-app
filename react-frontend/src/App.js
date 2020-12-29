@@ -1,7 +1,7 @@
 
 import React from 'react';
-
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+// eslint-disable-next-line
+// import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 import Dashboard from './containers/Dashboard';
 //import SignUpForm from './containers/SignUpForm';
