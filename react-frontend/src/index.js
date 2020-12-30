@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-// import './css/index.css'
-import 'semantic-ui-css/semantic.min.css'
+import './assets/index.css'
+
+//import './assets/semantic.min.css'
 
 
 import { Provider } from 'react-redux';

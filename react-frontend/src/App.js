@@ -4,13 +4,13 @@ import React from 'react';
 // import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 import Dashboard from './containers/Dashboard';
-//import SignUpForm from './containers/SignUpForm';
-//import LoginForm from './containers/LoginForm';
+import SignupForm from './containers/SignupForm';
+import LoginForm from './containers/LoginForm';
 
 function App() {
   return (
     <div className="App">
-      <Dashboard />
+      <LoginForm />
       {/* <Router>
         <Header />
 

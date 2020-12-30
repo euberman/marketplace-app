@@ -10,14 +10,10 @@ const SignupForm = () => (
       </Header>
       <Form size='large'>
         <Segment stacked>
-          <Form.Input fluid icon='user' iconPosition='left' placeholder='First_Name'/>
-          <Form.Input fluid icon='user' iconPosition='left' placeholder='Last Name' />
-          <Form.Input fluid icon='user' iconPosition='left' placeholder='E-mail address' />
-          <Form.Input fluid 
-            icon='lock' 
-            iconPosition='left' 
-            placeholder='Password' 
-            type='password' 
+          <Form.Input name='firstName' placeholder='First_Name'/>
+          <Form.Input name='lastName' placeholder='Last Name' />
+          <Form.Input name='email' placeholder='E-mail address' />
+          <Form.Input name='password' placeholder='Password' type='password' 
           />
 
           <Button color='teal' fluid size='large'>
