@@ -38,9 +38,17 @@ import Container from '@material-ui/core/Container';
       },
     }));
 
-function LoginForm() {
-  const classes = useStyles();
 
+
+
+function LoginForm() {
+  const dispatch = useDispatch()
+  useEffect(()=> {
+    fetch(http://localhost:3000/user)
+  })
+
+  const classes = useStyles();
+  
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
