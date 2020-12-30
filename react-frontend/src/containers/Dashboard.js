@@ -27,6 +27,7 @@ import {Container, TextareaAutosize} from '@material-ui/core';
 
 import { mainListItems, secondaryListItems } from '../components/DrawerNavList';
 import OrdersList from '../components/OrdersList';
+import ProductList from '../components/ProductList'
 
 
     const drawerWidth = 240;
@@ -120,6 +121,8 @@ function Dashboard() {
   const handleDrawerClose = () => setOpen(false);
   //cconst fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const shoppingCartItemsCount = useSelector(state => state.shoppingCart.items.length)
+  const products = useSelector(state => state.products.allProducts)
+
   return (
     <div className={clsx(classes.root, classes.fixedWidth)} >
       <CssBaseline />
@@ -130,7 +133,7 @@ function Dashboard() {
               <MenuIcon />
             </IconButton>
 
-            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}> Dashboard </Typography>
+            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title} onClick={() => console.log(products)}> Dashboard </Typography>
             
             <IconButton color="inherit">
               <Badge badgeContent={shoppingCartItemsCount} color="secondary">
@@ -158,6 +161,7 @@ function Dashboard() {
 
       <main className={classes.content}>
           <div className={classes.appBarSpacer} />
+          <ProductList />
           <Container maxWidth="lg" className={classes.container}>
                 <Grid container spacing={3}>
                   

@@ -24,15 +24,15 @@ function ProductCard(props) {
           component="img"
           alt="Contemplative Reptile"
           height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
+          image={props.product.image_url}
           title="Contemplative Reptile"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {props.product.name}
+            {props.product.title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {props.product.description}
+            {props.product.brand}
           </Typography>
         </CardContent>
       </CardActionArea>

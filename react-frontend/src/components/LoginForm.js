@@ -49,18 +49,21 @@ function LoginForm() {
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
-    fetch(`http://localhost:3000/users/${currentUser.id}`, {
-      method:"PATCH",
-      headers:{
-        'Content-Type': 'application/json'
-      },
-      body:JSON.stringify(currentUser)
-    })
-    .then(res=> res.json())
-    .then(data => {
-      dispatch({type:'LOGIN', user:data})
-      dispatch({type:'CLEAR_FORM'})
-    })
+    // fetch(`http://localhost:3000/users/${currentUser.id}`, {
+    //   method:"PATCH",
+    //   headers:{
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body:JSON.stringify(currentUser)
+    // })
+    // .then(res=> res.json())
+    // .then(data => {
+    //   dispatch({type:'LOGIN', user:data})
+    //   dispatch({type:'CLEAR_FORM'})
+    // })
+    // debugger
+    dispatch({type:'LOGIN', user:{email: e.target.querySelector('#email').value, password: e.target.querySelector('#password').value}})
+    dispatch({type:'CLEAR_FORM'})
     
   }
 
@@ -74,6 +77,8 @@ function LoginForm() {
   
   return (
     <Container component="main" maxWidth="xs">
+      {currentUser.email}
+
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}> <LockOutlinedIcon /> </Avatar>
@@ -119,7 +124,7 @@ function LoginForm() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="http://localhost:3001/signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

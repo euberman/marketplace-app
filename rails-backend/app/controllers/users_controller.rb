@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     def show
         user = User.find_by(id: params[:id])
         if user
-            render json: user.slice(:id, :username, :password)
+            render json: user.slice(:id, :email, :password)
         else
             render json: { message: 'Item not found' }
         end
@@ -35,6 +35,6 @@ class UsersController < ApplicationController
     private
 
     def user_params
-        params.require(:user).permit(:username, :password)
+        params.require(:user).permit(:email, :password)
     end
 end
