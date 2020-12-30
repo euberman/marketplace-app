@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+#Note: Do not ever rails db:drop!!! These requests don't work very well when run all together for some reason, so if you db:drop, you need to run each of these individually inside the rails console.
+
 require 'uri'
 require 'net/http'
 require 'openssl'
@@ -21,23 +23,85 @@ request["x-rapidapi-key"] = '4c56e34434mshb05b44857d9af7bp12ac07jsnc8378f9b70ea'
 request["x-rapidapi-host"] = 'walmart.p.rapidapi.com'
 
 response = http.request(request)
-res1 = JSON.parse response.read_body
-res1["items"].each{|product| Product.create(brand: product["brand"][0], product_id: product["productId"], department: product["department"], title: product["title"], description: product["description"], image_url: product["imageUrl"], customer_rating: product["customerRating"], num_reviews: product["numReviews"], in_stock: product["inventory"]["availableOnline"], price: product["primaryOffer"]["offerPrice"], two_day_shipping_eligible: product["twoDayShippingEligible"], store_id: product["sellerId"], store_name: product["sellerName"])}
+res = JSON.parse response.read_body
+res["items"].each{|product| Product.create(brand: product["brand"][0], product_id: product["productId"], department: product["department"], title: product["title"], description: product["description"], image_url: product["imageUrl"], customer_rating: product["customerRating"], num_reviews: product["numReviews"], in_stock: product["inventory"]["availableOnline"], price: product["primaryOffer"]["offerPrice"], two_day_shipping_eligible: product["twoDayShippingEligible"], store_id: product["sellerId"], store_name: product["sellerName"])}
 
-# puts response.read_body
+byebug
+
+# url1 = URI("https://walmart.p.rapidapi.com/products/list?cat_id=0&pref_store=5959%2C3640%2C4526%2C3584%2C2066&sort=price_low&page=3&zipcode=77008")
+
+# http1 = Net::HTTP.new(url1.host, url1.port)
+# http1.use_ssl = true
+# http1.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+# request1 = Net::HTTP::Get.new(url1)
+# request1["x-rapidapi-key"] = '4c56e34434mshb05b44857d9af7bp12ac07jsnc8378f9b70ea'
+# request1["x-rapidapi-host"] = 'walmart.p.rapidapi.com'
+
+# response1 = http1.request(request1)
+# res1 = JSON.parse response1.read_body
+# res1["items"].each{|product| Product.create(brand: product["brand"][0], product_id: product["productId"], department: product["department"], title: product["title"], description: product["description"], image_url: product["imageUrl"], customer_rating: product["customerRating"], num_reviews: product["numReviews"], in_stock: product["inventory"]["availableOnline"], price: product["primaryOffer"]["offerPrice"], two_day_shipping_eligible: product["twoDayShippingEligible"], store_id: product["sellerId"], store_name: product["sellerName"])}
+
+# byebug
+
+# url2 = URI("https://walmart.p.rapidapi.com/products/list?cat_id=0&pref_store=2955%2C1599%2C1094%2C3273%2C4590&sort=new&page=1&zipcode=64030")
+
+# http2 = Net::HTTP.new(url2.host, url2.port)
+# http2.use_ssl = true
+# http2.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+# request2 = Net::HTTP::Get.new(url2)
+# request2["x-rapidapi-key"] = '4c56e34434mshb05b44857d9af7bp12ac07jsnc8378f9b70ea'
+# request2["x-rapidapi-host"] = 'walmart.p.rapidapi.com'
+
+# response2 = http2.request(request2)
+# res2 = JSON.parse response2.read_body
+# res2["items"].each{|product| Product.create(brand: product["brand"][0], product_id: product["productId"], department: product["department"], title: product["title"], description: product["description"], image_url: product["imageUrl"], customer_rating: product["customerRating"], num_reviews: product["numReviews"], in_stock: product["inventory"]["availableOnline"], price: product["primaryOffer"]["offerPrice"], two_day_shipping_eligible: product["twoDayShippingEligible"], store_id: product["sellerId"], store_name: product["sellerName"])}
+
+# byebug
+
+# url3 = URI("https://walmart.p.rapidapi.com/products/list?cat_id=0&pref_store=573&sort=price_high&page=3&zipcode=64030")
+
+# http3 = Net::HTTP.new(url3.host, url3.port)
+# http3.use_ssl = true
+# http3.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+# request3 = Net::HTTP::Get.new(url3)
+# request3["x-rapidapi-key"] = '4c56e34434mshb05b44857d9af7bp12ac07jsnc8378f9b70ea'
+# request3["x-rapidapi-host"] = 'walmart.p.rapidapi.com'
+
+# response3 = http3.request(request3)
+# res3 = JSON.parse response3.read_body
+# res3["items"].each{|product| Product.create(brand: product["brand"][0], product_id: product["productId"], department: product["department"], title: product["title"], description: product["description"], image_url: product["imageUrl"], customer_rating: product["customerRating"], num_reviews: product["numReviews"], in_stock: product["inventory"]["availableOnline"], price: product["primaryOffer"]["offerPrice"], two_day_shipping_eligible: product["twoDayShippingEligible"], store_id: product["sellerId"], store_name: product["sellerName"])}
 
 
-# def products
-#     response1 = RestClient.get 'https://walmart.p.rapidapi.com/products/list?cat_id=0&pref_store=2648%2C5434%2C2031%2C2280%2C5426&sort=best_seller&page=1&zipcode=94066'
-#     json1 = JSON.parse response1
 
-#     puts json1
-#     byebug
+# url4 = URI("https://walmart.p.rapidapi.com/products/list?cat_id=0&pref_store=2516&sort=rating_high&page=1&zipcode=98101")
 
-#     # if !json1.nil?
-#     #     json1[]
-#     # else
-#     # end
-# end
+# http4 = Net::HTTP.new(url4.host, url4.port)
+# http4.use_ssl = true
+# http4.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-# products
+# request4 = Net::HTTP::Get.new(url4)
+# request4["x-rapidapi-key"] = '4c56e34434mshb05b44857d9af7bp12ac07jsnc8378f9b70ea'
+# request4["x-rapidapi-host"] = 'walmart.p.rapidapi.com'
+
+# response4 = http4.request(request4)
+# res4 = JSON.parse response4.read_body
+# res4["items"].each{|product| Product.create(brand: product["brand"][0], product_id: product["productId"], department: product["department"], title: product["title"], description: product["description"], image_url: product["imageUrl"], customer_rating: product["customerRating"], num_reviews: product["numReviews"], in_stock: product["inventory"]["availableOnline"], price: product["primaryOffer"]["offerPrice"], two_day_shipping_eligible: product["twoDayShippingEligible"], store_id: product["sellerId"], store_name: product["sellerName"])}
+
+
+
+# url5 = URI("https://walmart.p.rapidapi.com/products/list?cat_id=0&pref_store=2325&sort=rating_high&page=1&zipcode=98101")
+
+# http5 = Net::HTTP.new(url5.host, url5.port)
+# http5.use_ssl = true
+# http5.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+# request5 = Net::HTTP::Get.new(url5)
+# request5["x-rapidapi-key"] = '4c56e34434mshb05b44857d9af7bp12ac07jsnc8378f9b70ea'
+# request5["x-rapidapi-host"] = 'walmart.p.rapidapi.com'
+
+# response5 = http5.request(request5)
+# res5 = JSON.parse response5.read_body
+# res5["items"].each{|product| Product.create(brand: product["brand"][0], product_id: product["productId"], department: product["department"], title: product["title"], description: product["description"], image_url: product["imageUrl"], customer_rating: product["customerRating"], num_reviews: product["numReviews"], in_stock: product["inventory"]["availableOnline"], price: product["primaryOffer"]["offerPrice"], two_day_shipping_eligible: product["twoDayShippingEligible"], store_id: product["sellerId"], store_name: product["sellerName"])}
