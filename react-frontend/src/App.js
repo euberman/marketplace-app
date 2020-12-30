@@ -1,21 +1,18 @@
 
 import React from 'react';
 // eslint-disable-next-line
-// import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 import Dashboard from './containers/Dashboard';
-import SignupForm from './containers/SignupForm';
-import LoginForm from './containers/LoginForm';
+import SignupForm from './components/SignupForm';
+import LoginForm from './components/LoginForm';
 
 function App() {
   return (
     <div className="App">
-      <LoginForm />
-      {/* <Router>
-        <Header />
-
+      <Router>
         <Switch>
-          <Route path="/" component={() => {
+          <Route path="/dashboard" component={() => {
             return <Dashboard />
           }}/>
 
@@ -24,11 +21,11 @@ function App() {
           }}/>
           
           <Route path="/signup" component={() => {
-            return <SignUpForm />
+            return <SignupForm />
           }}/>
           
         </Switch>
-      </Router> */}
+      </Router>
     </div>
 );
 }
