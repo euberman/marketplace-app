@@ -1,5 +1,6 @@
 const initialState = {
     isLoggedIn: false,
+    allUsers: [],
     currentUser: {
         userName: '',
         password: '',
@@ -11,6 +12,11 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
+        case 'GET_USERS':
+            return {
+                ...state,
+                allUsers: action.users
+            }
         case 'LOGOUT':
             return {
                 ...state,
@@ -18,11 +24,13 @@ const userReducer = (state = initialState, action) => {
                 currentUser: null
             }
         case 'LOGIN':
-            state = action.user
+            // state = action.user
+            let trueUser = state.allUsers.find(u => u.email === action.user.email && u.password === action.user.password)
+            if (trueUser)
             return {
                 ...state, 
                 isLoggedIn: true,
-                currentUser: action.user
+                currentUser: trueUser
             }
         case 'SIGN_UP':
             return {

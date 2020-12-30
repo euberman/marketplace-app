@@ -8,8 +8,8 @@
 
 #Note: Do not ever rails db:drop!!! These requests don't work very well when run all together for some reason, so if you db:drop, you need to run each of these individually inside the rails console.
 
-ariel = User.create(username: "ArielVG", password: "1234")
-eric = User.create(username: "euberman", password: "1234")
+ariel = User.create(email: "ArielVG", password: "1234")
+eric = User.create(email: "euberman", password: "1234")
 
 require 'uri'
 require 'net/http'

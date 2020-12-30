@@ -24,14 +24,14 @@ const rows = [
 
 
 function ProductList() {
-  const classes = useStyles();
 
-  const products = useSelector(state => state.products.all)
+
+  const products = useSelector(state => state.products.allProducts)
   
   return (
     <React.Fragment>
       <Title>Products</Title>
-      <CssBaseline />
+      {/* <CssBaseline /> */}
       {
         products.map(item => <ProductCard product={item} key={item.id} />)
       }
