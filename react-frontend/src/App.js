@@ -11,16 +11,15 @@ import LoginForm from './components/LoginForm';
 
 function App() {
 
-  function LoginForm() {
     const dispatch = useDispatch()
-    
-    useEffect(()=> {
-      fetch('http://localhost:3000/products')
-        .then(resp => resp.json())
-        .then(data => {
-          dispatch({type:'GET_PRODUCTS', products:data})
-        })
-    })
+
+    // useEffect(()=> {
+    //   fetch('http://localhost:3000/products')
+    //     .then(resp => resp.json())
+    //     .then(data => {
+    //       dispatch({type:'GET_PRODUCTS', products:data})
+    //     })
+    // })
 
 
   return (
@@ -42,7 +41,7 @@ function App() {
         </Switch>
       </Router>
     </div>
-);
+  );
 }
 
-export default App;
+export default App

@@ -11,7 +11,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -39,27 +38,47 @@ import Container from '@material-ui/core/Container';
     }));
 
 
-
-
 function LoginForm() {
-  const dispatch = useDispatch()
-  useEffect(()=> {
-    fetch(http://localhost:3000/user)
-  })
 
   const classes = useStyles();
+  
+  const [currentUser, setCurrentUser] = useState({ password: '', email: '' });
+
+  // let { username, password } = inputs;
+  // const isLoggedIn = useSelector(state => state.isLoggingIn);
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    fetch(`http://localhost:3000/users/${currentUser.id}`, {
+      method:"PATCH",
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify(currentUser)
+    })
+    .then(res=> res.json())
+    .then(data => {
+      dispatch({type:'LOGIN', user:data})
+      dispatch({type:'CLEAR_FORM'})
+    })
+    
+  }
+
+  const handleChange = (e) => {
+    setCurrentUser({
+      ...currentUser,
+      [e.target.name] : e.target.value
+    })
+  };
+  
   
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <form className={classes.form} noValidate>
+        <Avatar className={classes.avatar}> <LockOutlinedIcon /> </Avatar>
+       <Typography component="h1" variant="h5"> Sign in </Typography>
+        <form className={classes.form} onSubmit={(e)=>handleSubmit(e)} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -70,6 +89,7 @@ function LoginForm() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={(e)=>handleChange(e)}
           />
           <TextField
             variant="outlined"
@@ -81,10 +101,7 @@ function LoginForm() {
             type="password"
             id="password"
             autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+            onChange={(e)=>handleChange(e)}
           />
           <Button
             type="submit"

@@ -1,6 +1,6 @@
 //I manage the properties.
 const initialState = {
-    products: [],
+    all: [],
     currentProduct: null
 }
 const productReducer = (state = initialState, action) => {
