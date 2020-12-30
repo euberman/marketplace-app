@@ -1,0 +1,54 @@
+ActiveRecord::Schema.define(version: 2020_12_29_222708) do
+
+  create_table "products", force: :cascade do |t|
+    t.string "brand"
+    t.string "product_id"
+    t.string "department"
+    t.string "title"
+    t.string "description"
+    t.string "image_url"
+    t.string "customer_rating"
+    t.integer "num_reviews"
+    t.boolean "in_stock"
+    t.string "price"
+    t.boolean "two_day_shipping_eligible"
+    t.string "store_id"
+    t.string "store_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "product_id"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_reviews_on_product_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
+  create_table "shopping_cart_products", force: :cascade do |t|
+    t.integer "shopping_cart_id"
+    t.integer "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_shopping_cart_products_on_product_id"
+    t.index ["shopping_cart_id"], name: "index_shopping_cart_products_on_shopping_cart_id"
+  end
+
+  create_table "shopping_carts", force: :cascade do |t|
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_shopping_carts_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+end
