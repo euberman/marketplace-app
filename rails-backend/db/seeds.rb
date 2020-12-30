@@ -113,53 +113,6 @@ res5["items"].each{|p| all_products.push(p)}
 all_products.length
 
 
-url6 = URI("https://walmart.p.rapidapi.com/products/list?cat_id=0&pref_store=5434&sort=best_seller&page=1&zipcode=94066")
-
-http6 = Net::HTTP.new(url6.host, url6.port)
-http6.use_ssl = true
-http6.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
-request6 = Net::HTTP::Get.new(url6)
-request6["x-rapidapi-key"] = '4c56e34434mshb05b44857d9af7bp12ac07jsnc8378f9b70ea'
-request6["x-rapidapi-host"] = 'walmart.p.rapidapi.com'
-
-response6 = http6.request(request6)
-res6 = JSON.parse response6.read_body
-res6["items"].each{|p| all_products.push(p)}
-all_products.length
-
-
-url7 = URI("https://walmart.p.rapidapi.com/products/list?cat_id=0&pref_store=2031&sort=new&page=1&zipcode=94066")
-
-http7 = Net::HTTP.new(url7.host, url7.port)
-http7.use_ssl = true
-http7.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
-request7 = Net::HTTP::Get.new(url7)
-request7["x-rapidapi-key"] = '4c56e34434mshb05b44857d9af7bp12ac07jsnc8378f9b70ea'
-request7["x-rapidapi-host"] = 'walmart.p.rapidapi.com'
-
-response7 = http7.request(request7)
-res7 = JSON.parse response7.read_body
-res7["items"].each{|p| all_products.push(p)}
-all_products.length
-
-
-url8 = URI("https://walmart.p.rapidapi.com/products/list?cat_id=0&pref_store=2280&sort=new&page=1&zipcode=94066")
-
-http8 = Net::HTTP.new(url8.host, url8.port)
-http8.use_ssl = true
-http8.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
-request8 = Net::HTTP::Get.new(url8)
-request8["x-rapidapi-key"] = '4c56e34434mshb05b44857d9af7bp12ac07jsnc8378f9b70ea'
-request8["x-rapidapi-host"] = 'walmart.p.rapidapi.com'
-
-response8 = http8.request(request8)
-res8 = JSON.parse response8.read_body
-res8["items"].each{|p| all_products.push(p)}
-all_products.length
-
 url9 = URI("https://walmart.p.rapidapi.com/products/list?cat_id=0&pref_store=5426&sort=new&page=1&zipcode=94066")
 
 http9 = Net::HTTP.new(url9.host, url9.port)
