@@ -28,7 +28,7 @@ import {Container, TextareaAutosize} from '@material-ui/core';
 import { mainListItems, secondaryListItems } from '../components/DrawerNavList';
 // import OrdersList from '../components/OrdersList';
 // import ProductList from '../components/ProductList'
-import PList from '../components/PList'
+import ProductList from '../components/product/ProductList'
 
     const drawerWidth = 240;
 
@@ -106,12 +106,6 @@ import PList from '../components/PList'
         overflow: 'auto',
         flexDirection: 'column',
       },
-      fixedWidth: {
-        maxWidth: 1200,
-      },
-      fixedHeight: {
-        height: 240,
-      },
     }));
 
 function Dashboard() {
@@ -163,11 +157,7 @@ function Dashboard() {
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
                 <Grid container spacing={3}>
-                  <Grid item xs={12}>
-                      <Paper className={classes.paper}>
-                         <PList />
-                      </Paper>
-                  </Grid>
+                    <ProductList />
                 </Grid>
           </Container>
       </main>

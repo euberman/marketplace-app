@@ -49,19 +49,6 @@ function LoginForm() {
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
-    // fetch(`http://localhost:3000/users/${currentUser.id}`, {
-    //   method:"PATCH",
-    //   headers:{
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body:JSON.stringify(currentUser)
-    // })
-    // .then(res=> res.json())
-    // .then(data => {
-    //   dispatch({type:'LOGIN', user:data})
-    //   dispatch({type:'CLEAR_FORM'})
-    // })
-    // debugger
     dispatch({type:'LOGIN', user:{email: e.target.querySelector('#email').value, password: e.target.querySelector('#password').value}})
     dispatch({type:'CLEAR_FORM'})
     
