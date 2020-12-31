@@ -48,32 +48,27 @@ function LoginForm() {
   // const isLoggedIn = useSelector(state => state.isLoggingIn);
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
-    // fetch(`http://localhost:3000/users/${currentUser.id}`, {
-    //   method:"PATCH",
-    //   headers:{
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body:JSON.stringify(currentUser)
-    // })
-    // .then(res=> res.json())
-    // .then(data => {
-    //   dispatch({type:'LOGIN', user:data})
-    //   dispatch({type:'CLEAR_FORM'})
-    // })
-    // debugger
+  const handleSubmit = (e, c) => {
+    e.preventDefault()
+    debugger
     dispatch({type:'LOGIN', user:{email: e.target.querySelector('#email').value, password: e.target.querySelector('#password').value}})
-    dispatch({type:'CLEAR_FORM'})
+    // setCurrentUser({
+      
+    // })
+    // dispatch({type:'CLEAR_FORM'})
     
   }
 
+  useEffect(() => {
+    setCurrentUser()
+  }, [currentUser])
+
   const handleChange = (e) => {
-    setCurrentUser({
-      ...currentUser,
-      [e.target.name] : e.target.value
-    })
+    // setCurrentUser({
+    //   ...currentUser,
+    //   [e.target.name] : e.target.value
+    // })
   };
-  
   
   return (
     <Container component="main" maxWidth="xs">
@@ -83,7 +78,7 @@ function LoginForm() {
       <div className={classes.paper}>
         <Avatar className={classes.avatar}> <LockOutlinedIcon /> </Avatar>
        <Typography component="h1" variant="h5"> Sign in </Typography>
-        <form className={classes.form} onSubmit={(e)=>handleSubmit(e)} noValidate>
+        <form className={classes.form} onSubmit={(e)=>handleSubmit(e, currentUser)} noValidate>
           <TextField
             variant="outlined"
             margin="normal"

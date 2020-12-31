@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import {useSelector, useDispatch } from 'react-redux';
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import { getProducts } from './_actions/productActions'
+import { getUsers } from './_actions/userActions'
 
 import Dashboard from './containers/Dashboard';
 import SignupForm from './components/SignupForm';
@@ -20,6 +21,11 @@ function App() {
         .then(data => {
           dispatch(getProducts(data))
         })
+      fetch('http://localhost:3000/users')
+      .then(res => res.json())
+      .then(data => {
+        dispatch(getUsers(data))
+      })
     }, [])
 
 
