@@ -1,7 +1,7 @@
 
 import React, { useEffect } from 'react';
 import {useSelector, useDispatch } from 'react-redux';
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
 import { getProducts } from './_actions/productActions'
 import { getUsers } from './_actions/userActions'
 
@@ -44,7 +44,10 @@ function App() {
           <Route path="/signup" component={() => {
             return <SignupForm />
           }}/>
-          
+
+          <Route component={() => {
+            return <Redirect to='/dashboard' />
+          }}/>
         </Switch>
       </Router>
     </div>

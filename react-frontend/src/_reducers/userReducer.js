@@ -26,26 +26,17 @@ const userReducer = (state = initialState, action) => {
             }
         }
         case 'LOGIN':{
-            // state = action.user
-            let trueUser = state.allUsers.find(u => u.email === action.user.email && u.password === action.user.password)
-            debugger
-            if (trueUser){
-                return {
-                    ...state, 
-                    isLoggedIn: true,
-                    currentUser: trueUser
-                }
-            } else {
-                return {
-                    ...state
-                }
+            return {
+                ...state,
+                currentUser: action.user
             }
         }
         case 'SIGN_UP':{
             return {
                 ...state,
                 isLoggedIn: true,
-                currentUser: [...state.currentUser, action.user]
+                currentUser: action.user
+                // allUsers: [...state.allUsers, action.user]
             }
         }
         default:
