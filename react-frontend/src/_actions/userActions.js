@@ -15,9 +15,14 @@ export const logout = (user) => {
 }
 export const signupNewUser = (user) => {
   return {
-      type: 'SIGNUP_NEW_USER',
+      type: 'SIGNUP',
       user: user
   }
 }
 
-
+export const getUsers = (users) => {
+  return {
+      type: 'GET_USERS',
+      users: users
+  }
+}

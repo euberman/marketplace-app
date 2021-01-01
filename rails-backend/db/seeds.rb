@@ -7,13 +7,12 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 #Note: Do not ever rails db:drop!!! These requests don't work very well when run all together for some reason, so if you db:drop, you need to run each of these individually inside the rails console.
-
-ariel = User.create(email: "ArielVG", password: "1234")
-eric = User.create(email: "euberman", password: "1234")
-
 require 'uri'
 require 'net/http'
 require 'openssl'
+
+ariel = User.create(email: "ariel.v.grubbs@gmail.com", password: "1234", first_name: "Ariel", last_name: "Grubbs", username: "ArielVG")
+eric = User.create(email: "euberman@gmail.com", password: "1234", first_name: "Eric", last_name: "Uberman", username: "euberman")
 
 all_products = []
 
