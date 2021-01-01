@@ -75,7 +75,13 @@ function SignupForm() {
     .then(res => res.json())
     .then((data) => {
       dispatch(signupNewUser(data))
-      setUser(data)
+      let tempUser = {
+        email: data.email,
+        password: data.password,
+        first_name: data.first_name,
+        last_name: data.last_name
+      }
+      setUser(tempUser)
       history.push('/dashboard')
     })
   }
