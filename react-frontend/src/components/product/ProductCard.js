@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   cardActions: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
     alignContent: 'center'
   },
   title: {fontSize: 18, fontWeight: 'bold'},
@@ -65,7 +65,7 @@ function ProductCard(props) {
           />
           <CardContent className={classes.cardContent}>
             <Typography className={classes.price}>
-              {props.product.price}
+              $ {props.product.price}
             </Typography>
           
             <Typography>
