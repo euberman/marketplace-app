@@ -24,7 +24,7 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className="App" >
       <Router>
         <Switch>
           <Route path="/dashboard" component={() => {

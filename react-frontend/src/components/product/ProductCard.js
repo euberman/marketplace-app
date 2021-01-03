@@ -18,12 +18,14 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   card: {
-    height: '100%',
+    minWidth: 185,
+    width: 200,
+    padding: 5,
     display: 'flex',
     flexDirection: 'column',
   },
   cardMedia: {
-    width: 150, height: 150, margin: 'auto', padding:5
+    width: 150, height: 150, margin: 'auto', padding:10
   },
   cardContent: {
     flexGrow: 1,
@@ -41,10 +43,6 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
   },
   notInStock: {textAlign: 'center'},
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6),
-  },
 }));
 
 function ProductCard(props) {
@@ -52,7 +50,7 @@ function ProductCard(props) {
 
   return (
     <React.Fragment>
-      <Grid item key={props.product.id} xs={12} sm={6} md={2}>
+      <Grid item key={props.product.id}>
         <Card className={classes.card}>
           <CardMedia
             className={classes.cardMedia}
@@ -68,10 +66,10 @@ function ProductCard(props) {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="small" color="primary">
-              View
-            </Button>
-            <Button size="small" color="primary">
+
+            {props.product.price}
+            <Button size="small" color="primary"
+                    >
               Add to Cart
             </Button>
           </CardActions>

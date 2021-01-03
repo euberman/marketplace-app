@@ -34,7 +34,7 @@ import ProductList from '../components/product/ProductList'
 
     const useStyles = makeStyles((theme) => ({
       root: {
-        display: 'flex',
+        display: 'flex'
       },
       toolbar: {
         paddingRight: 24, // keep right padding when drawer closed
@@ -118,7 +118,7 @@ function Dashboard() {
   const products = useSelector(state => state.products.allProducts)
 
   return (
-    <div className={clsx(classes.root)} >
+    <div className={clsx(classes.root)}  >
       <CssBaseline />
 
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
@@ -156,9 +156,9 @@ function Dashboard() {
       <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
-                <Grid container spacing={3}>
+                
                     <ProductList />
-                </Grid>
+                
           </Container>
       </main>
     </div>
