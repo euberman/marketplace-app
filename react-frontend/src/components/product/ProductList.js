@@ -13,9 +13,10 @@ import ProductCard from './ProductCard'
 const useStyles = makeStyles((theme) => ({
   pList: {
     height: '100%',
+    width:'100%',
     display: 'flex',
     flexFlow: 'row wrap',
-    paddingTop: theme.spacing(2),
+    paddingTop: theme.spacing(3),
     paddingBottom: theme.spacing(3),
   }
 }));
@@ -28,7 +29,7 @@ function ProductList() {
   return (
     <React.Fragment>
       {/* <CssBaseline /> */}
-      <Grid container className={classes.pList} spacing={3}>
+      <Grid container className={classes.pList} spacing={2}>
         {
           products.map(item => <ProductCard product={item} key={item.id} />)
         }

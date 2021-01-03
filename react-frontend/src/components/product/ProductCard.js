@@ -9,8 +9,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
+import Rating from '@material-ui/lab/Rating';
+import {Box} from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -18,29 +18,34 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   card: {
-    minWidth: 185,
-    width: 200,
-    height:350,
+    minWidth: 200,
+    width: 250,
+    height:450,
     padding: 5,
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-evenly'
   },
   cardMedia: {
-    width:150, height:150, margin: 'auto'
+    width:150, minHeight:175, margin: 'auto', flex: 1
   },
   cardContent: {
     flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly'
   },
-  rowContainer: {
+  cardActions: {
+    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 10,
+    alignContent: 'center'
   },
   title: {fontSize: 18, fontWeight: 'bold'},
   description: {color: '#b1b1b1', marginBottom: 10},
   price: {
-    color: '#7de3bb',
-    fontSize: 18,
+    color: 'red',
+    fontSize: 17,
     fontWeight: 'bold',
   },
   notInStock: {textAlign: 'center'},
@@ -59,18 +64,25 @@ function ProductCard(props) {
             title={props.product.name}
           />
           <CardContent className={classes.cardContent}>
-            <Typography gutterBottom component="h6">
-              {props.product.title}
+            <Typography className={classes.price}>
+              {props.product.price}
             </Typography>
+          
             <Typography>
               {props.product.brand}
             </Typography>
+            <Typography>
+              {props.product.title}
+            </Typography>
+            <Box className={classes.cardActions}>
+              <Rating name="half-rating-read" value={props.product.customer_rating} precision={0.5} readOnly />
+              {props.product.num_reviews}
+            </Box>
+            
           </CardContent>
-          <CardActions>
-
-            {props.product.price}
-            <Button size="small" color="primary"
-                    >
+          <CardActions className={classes.cardActions}>
+            <Box>{ props.product.in_stock ? 'In-Stock' : 'Unavailable Online'}</Box>
+            <Button className={classes.addToCartBtn} size='medium' variant="contained" color="primary">
               Add to Cart
             </Button>
           </CardActions>
