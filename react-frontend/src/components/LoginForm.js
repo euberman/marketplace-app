@@ -16,6 +16,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import { login } from '../_actions/userActions'
+import { useHistory } from "react-router-dom";
+
 
     const useStyles = makeStyles((theme) => ({
       paper: {
@@ -41,29 +44,41 @@ import Container from '@material-ui/core/Container';
 function LoginForm() {
 
   const classes = useStyles();
-  
-  const [currentUser, setCurrentUser] = useState({ password: '', email: '' });
+  let history = useHistory();
 
-  // let { username, password } = inputs;
-  // const isLoggedIn = useSelector(state => state.isLoggingIn);
+  const currentUser = useSelector(state => state.user.currentUser)
+  const allUsers = useSelector(state => state.user.allUsers)
+  
+  const [user, setUser] = useState(currentUser);
+
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
-    dispatch({type:'LOGIN', user:{email: e.target.querySelector('#email').value, password: e.target.querySelector('#password').value}})
-    dispatch({type:'CLEAR_FORM'})
+    e.preventDefault()
+
+    let userExists = false
+    let loginUser = allUsers.find(user => {
+      if (user.email === e.target.querySelector('#email').value && user.password === e.target.querySelector('#password').value){
+        userExists = true
+        return user
+      }
+    })
+    dispatch(login(loginUser))
+    // dispatch({type:'CLEAR_FORM'})
+
+    // if (userExists){
+    //   history.push('/dashboard')
+    // }
     
   }
 
-  const handleChange = (e) => {
-    setCurrentUser({
-      ...currentUser,
-      [e.target.name] : e.target.value
-    })
-  };
-  
+  useEffect(() => {
+    setUser(currentUser)
+  }, [currentUser])
   
   return (
     <Container component="main" maxWidth="xs">
+      {user.email}
       {currentUser.email}
 
       <CssBaseline />
@@ -81,7 +96,6 @@ function LoginForm() {
             name="email"
             autoComplete="email"
             autoFocus
-            onChange={(e)=>handleChange(e)}
           />
           <TextField
             variant="outlined"
@@ -93,7 +107,6 @@ function LoginForm() {
             type="password"
             id="password"
             autoComplete="current-password"
-            onChange={(e)=>handleChange(e)}
           />
           <Button
             type="submit"
@@ -120,5 +133,6 @@ function LoginForm() {
       </div>
     </Container>
   );
+
 }
 export default LoginForm
