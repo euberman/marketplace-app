@@ -20,12 +20,13 @@ const useStyles = makeStyles((theme) => ({
   card: {
     minWidth: 185,
     width: 200,
+    height:350,
     padding: 5,
     display: 'flex',
     flexDirection: 'column',
   },
   cardMedia: {
-    width: 150, height: 150, margin: 'auto', padding:10
+    width:150, height:150, margin: 'auto'
   },
   cardContent: {
     flexGrow: 1,
@@ -58,7 +59,7 @@ function ProductCard(props) {
             title={props.product.name}
           />
           <CardContent className={classes.cardContent}>
-            <Typography gutterBottom variant="subtitle1" component="h4">
+            <Typography gutterBottom component="h6">
               {props.product.title}
             </Typography>
             <Typography>
