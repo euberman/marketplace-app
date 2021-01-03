@@ -26,15 +26,15 @@ import {Container, TextareaAutosize} from '@material-ui/core';
 
 
 import { mainListItems, secondaryListItems } from '../components/DrawerNavList';
-import OrdersList from '../components/OrdersList';
-import ProductList from '../components/ProductList'
-
+// import OrdersList from '../components/OrdersList';
+// import ProductList from '../components/ProductList'
+import ProductList from '../components/product/ProductList'
 
     const drawerWidth = 240;
 
     const useStyles = makeStyles((theme) => ({
       root: {
-        display: 'flex',
+        display: 'flex'
       },
       toolbar: {
         paddingRight: 24, // keep right padding when drawer closed
@@ -106,12 +106,6 @@ import ProductList from '../components/ProductList'
         overflow: 'auto',
         flexDirection: 'column',
       },
-      fixedWidth: {
-        maxWidth: 1200,
-      },
-      fixedHeight: {
-        height: 240,
-      },
     }));
 
 function Dashboard() {
@@ -124,7 +118,7 @@ function Dashboard() {
   const products = useSelector(state => state.products.allProducts)
 
   return (
-    <div className={clsx(classes.root, classes.fixedWidth)} >
+    <div className={clsx(classes.root)}  >
       <CssBaseline />
 
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
@@ -161,19 +155,10 @@ function Dashboard() {
 
       <main className={classes.content}>
           <div className={classes.appBarSpacer} />
-          <ProductList />
           <Container maxWidth="lg" className={classes.container}>
-                <Grid container spacing={3}>
-                  
-                  
-                  
-                  {/* Recent Orders */}
-                  <Grid item xs={12}>
-                      <Paper className={classes.paper}>
-                          <OrdersList />
-                      </Paper>
-                  </Grid>
-                </Grid>
+                
+                    <ProductList />
+                
           </Container>
       </main>
     </div>
