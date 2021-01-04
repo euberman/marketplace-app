@@ -2,7 +2,6 @@ const initialState = {
     isLoggedIn: false,
     allUsers: [],
     currentUser: {
-        id: null,
         userName: '',
         password: '',
         firstName: '',
