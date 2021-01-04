@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
     def index
         users = User.all
-        render json: users, except: [:created_at, :updated_at], include: [:reviews]
+        render json: users, except: [:created_at, :updated_at], include: [:reviews, :shopping_cart]
     end
 
     def show
@@ -16,6 +16,10 @@ class UsersController < ApplicationController
     def create
         user = User.new(user_params)
         user.save
+        shop1 = ShoppingCart.new(user_id: user[:id])
+        shop1.save
+        byebug
+        puts user.shopping_cart.shopping_cart_products
         # users = User.all
         render json: user#s, except: [:created_at, :updated_at], include: [:reviews]
     end
