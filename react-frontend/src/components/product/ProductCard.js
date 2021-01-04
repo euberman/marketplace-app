@@ -1,4 +1,14 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+// import {
+//   BrowserRouter as Router,
+//   Switch,
+//   Route,
+//   Link,
+//   useParams,
+//   useRouteMatch
+// } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 
 // import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
@@ -54,6 +64,33 @@ const useStyles = makeStyles((theme) => ({
 function ProductCard(props) {
   const classes = useStyles();
 
+  // let history = useHistory();
+
+  // const handleClick = (e) => {
+  //   history.push(`http://localhost:3001/products/${props.product.id}`)
+  // }
+
+  const currentUser = useSelector(state => state.user.currentUser)
+
+  const addToCart = (e) => {
+    fetch(`http://localhost:3000/users`)
+    .then(res => res.json())
+    .then(data => {
+      let cUSCId = data.find(u => u.id === currentUser.id).shopping_carts[0].id
+      fetch('http://localhost:3000/shopping_cart_products', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          shopping_cart_id: cUSCId,
+          product_id: props.product.id
+        })
+      })
+    })
+    
+  }
+
   return (
     <React.Fragment>
       <Grid item key={props.product.id}>
@@ -61,9 +98,9 @@ function ProductCard(props) {
           <CardMedia
             className={classes.cardMedia}
             image={props.product.image_url}
-            title={props.product.name}
+            title={props.product.title}
           />
-          <CardContent className={classes.cardContent}>
+          <CardContent className={classes.cardContent} >
             <Typography className={classes.price}>
               $ {props.product.price}
             </Typography>
@@ -82,7 +119,7 @@ function ProductCard(props) {
           </CardContent>
           <CardActions className={classes.cardActions}>
             <Box>{ props.product.in_stock ? 'In-Stock' : 'Unavailable Online'}</Box>
-            <Button className={classes.addToCartBtn} size='medium' variant="contained" color="primary">
+            <Button className={classes.addToCartBtn} size='medium' variant="contained" color="primary" onClick={(e) => addToCart(e)}>
               Add to Cart
             </Button>
           </CardActions>

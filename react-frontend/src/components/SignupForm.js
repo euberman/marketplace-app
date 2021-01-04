@@ -76,6 +76,7 @@ function SignupForm() {
     .then((data) => {
       dispatch(signupNewUser(data))
       let tempUser = {
+        id: data.id,
         email: data.email,
         password: data.password,
         first_name: data.first_name,

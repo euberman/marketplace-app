@@ -8,6 +8,7 @@ import { getUsers } from './_actions/userActions'
 import Dashboard from './containers/Dashboard';
 import SignupForm from './components/SignupForm';
 import LoginForm from './components/LoginForm';
+import ProductPage from './components/product/ProductPage';
 
 
 
@@ -44,6 +45,10 @@ function App() {
           <Route path="/signup" component={() => {
             return <SignupForm />
           }}/>
+
+          {/* <Route path={`/products/:id`} component={() => {
+            return <ProductPage />
+          }}/> */}
 
           <Route component={() => {
             return <Redirect to='/dashboard' />
