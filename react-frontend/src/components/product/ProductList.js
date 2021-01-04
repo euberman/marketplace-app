@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 function ProductList() {
   const classes = useStyles();
   const products = useSelector(state => state.products.allProducts)
+  debugger
 
   return (
     <React.Fragment>
