@@ -71,8 +71,14 @@ function ProductCard(props) {
   // }
 
   const currentUser = useSelector(state => state.user.currentUser)
+  // const shoppingCarts = useSelector(state => state.shoppingCart.)
 
-  const addToCart = (e) => {
+  const addToCart = () => {
+    console.log(currentUser)
+    debugger
+
+    //optimistically add element to cart and stuff.
+
     fetch(`http://localhost:3000/users`)
     .then(res => res.json())
     .then(data => {
@@ -119,7 +125,7 @@ function ProductCard(props) {
           </CardContent>
           <CardActions className={classes.cardActions}>
             <Box>{ props.product.in_stock ? 'In-Stock' : 'Unavailable Online'}</Box>
-            <Button className={classes.addToCartBtn} size='medium' variant="contained" color="primary" onClick={(e) => addToCart(e)}>
+            <Button className={classes.addToCartBtn} size='medium' variant="contained" color="primary" onClick={() => addToCart()}>
               Add to Cart
             </Button>
           </CardActions>

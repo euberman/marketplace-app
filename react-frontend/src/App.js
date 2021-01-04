@@ -2,13 +2,15 @@
 import React, { useEffect } from 'react';
 import {useSelector, useDispatch } from 'react-redux';
 import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
+
 import { getProducts } from './_actions/productActions'
 import { getUsers } from './_actions/userActions'
+import { getShoppingCarts } from './_actions/shoppingCartActions'
 
 import Dashboard from './containers/Dashboard';
 import SignupForm from './components/SignupForm';
 import LoginForm from './components/LoginForm';
-import ProductPage from './components/product/ProductPage';
+// import ProductPage from './components/product/ProductPage';
 
 
 
@@ -26,6 +28,11 @@ function App() {
       .then(res => res.json())
       .then(data => {
         dispatch(getUsers(data))
+      })
+      fetch('http://localhost:3000/shopping_carts')
+      .then(res => res.json())
+      .then(data => {
+        dispatch(getShoppingCarts(data))
       })
     }, [])
 
