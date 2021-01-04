@@ -15,7 +15,11 @@ const shoppingCartReducer = (state = initialState, action) => {
           subtotal: state.items.map( item => item.price ).reduce( itemReducer, 0),
           count: state.count + 1
       }
-
+  case 'UPDATE_CART_ITEM':
+      return {
+        ...state,
+        
+      }
   default:
       return state;
 
