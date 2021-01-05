@@ -72,6 +72,7 @@ function ProductCard(props) {
 
   const addToCart = () => {
     console.log(currentUser)
+    debugger
 
     //optimistically add element to cart and stuff.
 

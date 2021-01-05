@@ -18,7 +18,6 @@ class UsersController < ApplicationController
         user.save
         shop1 = ShoppingCart.new(user_id: user[:id])
         shop1.save
-        byebug
         puts user.shopping_cart.shopping_cart_products
         # users = User.all
         render json: user#s, except: [:created_at, :updated_at], include: [:reviews]
