@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {useDispatch} from 'react-redux'
 // import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Rating from '@material-ui/lab/Rating';
 import {Box} from '@material-ui/core';
+
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -42,32 +44,32 @@ const useStyles = makeStyles((theme) => ({
     alignContent: 'center'
   },
   title: {fontSize: 18, fontWeight: 'bold'},
-  description: {color: '#b1b1b1', marginBottom: 10},
   price: {
     color: 'red',
     fontSize: 17,
     fontWeight: 'bold',
-  },
-  notInStock: {textAlign: 'center'},
+  }
 }));
 
 function ProductCard(props) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  
+  const addToCart = () => {
+    dispatch({type: 'ADD_TO_CART', product: props.product})
+  }
+  // const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <React.Fragment>
       <Grid item key={props.product.id}>
         <Card className={classes.card}>
-          <CardMedia
-            className={classes.cardMedia}
-            image={props.product.image_url}
-            title={props.product.name}
-          />
+          <CardMedia className={classes.cardMedia} image={props.product.image_url} title={props.product.name} />
+
           <CardContent className={classes.cardContent}>
             <Typography className={classes.price}>
               $ {props.product.price}
             </Typography>
-          
             <Typography>
               {props.product.brand}
             </Typography>
@@ -78,11 +80,11 @@ function ProductCard(props) {
               <Rating name="half-rating-read" value={props.product.customer_rating} precision={0.5} readOnly />
               {props.product.num_reviews}
             </Box>
-            
           </CardContent>
+          
           <CardActions className={classes.cardActions}>
             <Box>{ props.product.in_stock ? 'In-Stock' : 'Unavailable Online'}</Box>
-            <Button className={classes.addToCartBtn} size='medium' variant="contained" color="primary">
+            <Button onClick={() => addToCart()} className={classes.addToCartBtn} size='medium' variant="contained" color="primary">
               Add to Cart
             </Button>
           </CardActions>

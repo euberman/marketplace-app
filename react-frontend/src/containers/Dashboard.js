@@ -3,32 +3,15 @@ import {useSelector, useDispatch } from 'react-redux';
 
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
-import Box from '@material-ui/core/Box';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-//import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import {Container, TextareaAutosize} from '@material-ui/core';
-//import CssBaseline from '@material-ui/core/CssBaseline';
-
+import {AppBar, CssBaseline, Drawer, Container, Toolbar, List, Typography, Divider, IconButton, Badge, Modal, Backdrop, Fade, } from '@material-ui/core';
 
 import { mainListItems, secondaryListItems } from '../components/DrawerNavList';
-// import OrdersList from '../components/OrdersList';
-// import ProductList from '../components/ProductList'
 import ProductList from '../components/product/ProductList'
+// import ShoppingCartBadge from '../components/shoppingCart/ShoppingCartBadge'
+import ShoppingCart from '../components/shoppingCart/ShoppingCart'
 
     const drawerWidth = 240;
 
@@ -100,11 +83,21 @@ import ProductList from '../components/product/ProductList'
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
       },
-      paper: {
-        padding: theme.spacing(2),
+      modalOpen: {
         display: 'flex',
-        overflow: 'auto',
-        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      modalClose: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      paper: {
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
       },
     }));
 
@@ -113,8 +106,15 @@ function Dashboard() {
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => setOpen(true);
   const handleDrawerClose = () => setOpen(false);
-  //cconst fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-  const shoppingCartItemsCount = useSelector(state => state.shoppingCart.items.length)
+  
+  const [shoppingCartOpen, setShoppingCartOpen] = React.useState(false);
+  const handleShoppingCartOpen = () => setShoppingCartOpen(true);
+  const handleShoppingCartClose = () => setShoppingCartOpen(false);
+
+
+  const shoppingCartItems = useSelector(state => state.shoppingCart.items)
+  let itemCount = shoppingCartItems.length
+
   const products = useSelector(state => state.products.allProducts)
 
   return (
@@ -127,13 +127,15 @@ function Dashboard() {
               <MenuIcon />
             </IconButton>
 
-            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title} onClick={() => console.log(products)}> Dashboard </Typography>
-            
-            <IconButton color="inherit">
-              <Badge badgeContent={shoppingCartItemsCount} color="secondary">
-                <ShoppingCartIcon />
-              </Badge>
+            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title} onClick={() => console.log(products)}> Wally-World MarketPlace </Typography>
+            <IconButton color="inherit" onClick={handleShoppingCartOpen}>
+                <Badge badgeContent={shoppingCartItems.length} color="secondary">
+                    <ShoppingCartIcon />
+                </Badge>
             </IconButton>
+            {/* <ShoppingCartBadge  onClick={handleShoppingCartOpen} 
+                                className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+                                itemCount={itemCount}/> */}
         </Toolbar>
       </AppBar>
 
@@ -143,22 +145,37 @@ function Dashboard() {
                 <ChevronLeftIcon />
               </IconButton>
           </div>
-
           <Divider />
-          
           <List>{mainListItems}</List>
-          
           <Divider />
-          
           <List>{secondaryListItems}</List>
       </Drawer>
 
       <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
-                
-                    <ProductList />
-                
+              <Modal aria-labelledby="transition-modal-title" aria-describedby="transition-modal-description" 
+                className={classes.modal}
+                open={shoppingCartOpen}
+                onClose={handleShoppingCartClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}
+              >
+                <Fade in={shoppingCartOpen}>
+                  <div className={classes.paper}>
+                    <ShoppingCart handleShoppingCartClose={handleShoppingCartClose}/>
+                  </div>
+                </Fade>
+              </Modal>
+          
+              <ProductList />
+
+              {/* <ReactModal isOpen={this.state.showModal} contentLabel="Shopping Cart">
+              <ShoppingCart />
+          </ReactModal>   */}
           </Container>
       </main>
     </div>
