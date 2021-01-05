@@ -163,44 +163,34 @@ function Dashboard() {
           <List>{secondaryListItems}</List>
       </Drawer>
 
-
-      <Switch>
-        <Route exact path={path}>
-          <main className={classes.content}>
-            <div className={classes.appBarSpacer} />
-            <Container maxWidth="lg" className={classes.container}>
-                <Modal aria-labelledby="transition-modal-title" aria-describedby="transition-modal-description" 
-                  className={classes.modal}
-                  open={shoppingCartOpen}
-                  onClose={handleShoppingCartClose}
-                  closeAfterTransition
-                  BackdropComponent={Backdrop}
-                  BackdropProps={{
-                    timeout: 500,
-                  }}
-                >
-                  <Fade in={shoppingCartOpen}>
-                    <div className={classes.paper}>
-                      <ShoppingCart handleShoppingCartClose={handleShoppingCartClose}/>
-                    </div>
-                  </Fade>
-                </Modal>
-            
-                <ProductList />
-
-                {/* <ReactModal isOpen={this.state.showModal} contentLabel="Shopping Cart">
-                <ShoppingCart />
-            </ReactModal>   */}
-            </Container>
-          </main>
-        </Route>
-        <Route path={`${path}/:productId`}>
-          <main className={classes.content}>
-            <div className={classes.appBarSpacer} />
-            <ProductPage />
-          </main>
-        </Route>
-      </Switch>
+      <main className={classes.content}>
+        <div className={classes.appBarSpacer} />
+        <Container maxWidth="lg" className={classes.container}>
+          <Modal aria-labelledby="transition-modal-title" aria-describedby="transition-modal-description" 
+            className={classes.modal}
+            open={shoppingCartOpen}
+            onClose={handleShoppingCartClose}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+              timeout: 500,
+            }}>
+            <Fade in={shoppingCartOpen}>
+              <div className={classes.paper}>
+                <ShoppingCart handleShoppingCartClose={handleShoppingCartClose}/>
+              </div>
+            </Fade>
+          </Modal>
+          <Switch>
+            <Route exact path={path}>
+              <ProductList />
+            </Route>
+            <Route path={`${path}/:productId`}>
+              <ProductPage />
+            </Route>
+          </Switch>
+        </Container>
+      </main>
     </div>
   );
 }
