@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
     //   flexDirection: 'column',
     //   justifyContent: 'space-evenly'
     },
+    brand: {
+      fontSize: 12
+    },
     cardMedia: {
       width:250, 
       minHeight:300, 
@@ -49,29 +52,53 @@ const useStyles = makeStyles((theme) => ({
     cardActions: {
       display: 'flex',
       flexDirection: 'row',
-      justifyContent: 'space-evenly',
-      alignContent: 'center'
+      // justifyContent: 'space-evenly',
+      alignContent: 'center',
+      paddingLeft: theme.spacing(0)
     },
     title: {fontSize: 18, fontWeight: 'bold'},
     description: {color: '#b1b1b1', marginBottom: 10},
     price: {
-      color: 'red',
+      color: '#B12704',
       fontSize: 17,
       fontWeight: 'bold',
+      display: 'flex',
     },
     notInStock: {textAlign: 'center'},
     submit: {
         margin: theme.spacing(1, 0, 5),
     },
+    dataLabel: {
+      color: '#9e9e9e',
+      display: 'flex',
+      fontSize: 14,
+      marginRight: theme.spacing(1)
+    },
+    inStock: {
+      color: '#007600',
+      display: 'flex',
+      fontSize: 17,
+    },
+    twoDayShipping: {
+      color: 'black',
+      display: 'flex',
+      marginLeft: theme.spacing(0.5),
+      fontSize: 14
+    }
   }));
 
 function ProductPage() {
     const classes = useStyles();
     const dispatch = useDispatch();
+    let [rating, setRating] = useState(5)
+
 
     let { productId } = useParams();
     const products = useSelector(state => state.products.allProducts)
     let product = products.find(p => p.id === parseInt(productId))
+    // console.log(parseFloat(product.customer_rating))
+
+    let [numReviews, setNumReviews] = useState(product.num_reviews)
 
     const addToCart = () => {
       dispatch({type: 'ADD_TO_CART', product: product})
@@ -92,29 +119,64 @@ function ProductPage() {
                         title={product.title}
                     />
                     <CardContent >
-                        <Typography >
-                            $ {product.price}
-                        </Typography>
-                    
-                        <Typography className={classes.title}>
-                            {product.brand}
+                        <Typography className={classes.brand}>
+                            Brand: {product.brand}
                         </Typography>
                         <Typography >
                             {product.title}
                         </Typography>
-                        <br/>
-                        <Typography>Leave a Review</Typography>
-                        <Box >
+                        <Box className={classes.cardActions}>
                             {/* make not readOnly */}
-                            <Rating name="half-rating-read" value={product.customer_rating} precision={0.5} readOnly />
-                            {product.num_reviews}
+                            <Rating name="half-rating-read" value={parseFloat(product.customer_rating)} precision={0.5} readOnly />
+                            {numReviews}
                         </Box>
-                        <CardActions >
-                        <Box>{ product.in_stock ? 'In-Stock' : 'Unavailable Online'}</Box>
+                        <hr />
+                        <Typography className={classes.price}>
+                            <div className={classes.dataLabel}>Price:</div> ${product.price}
+                        </Typography>
+
+
+                        <Box className={classes.inStock}>{ product.in_stock ? 'In-Stock' : 'Unavailable Online'}</Box>
+                        <Typography className={classes.twoDayShipping}>{product.two_day_shipping_eligible ? " Eligible for two day shipping from, and s" : "S"}old by {product.store_name.split(".")[0]}</Typography>
+                        <hr />
+                        
+                        <Typography className={classes.dataLabel}>
+                            Department: <div className={classes.twoDayShipping}>{product.department}</div>
+                        </Typography>
+                        <br/>
+                      {/* <Box >
+                        {product.two_day_shipping_eligible ? "and eligible for two day shipping" : ""}
+                      </Box> */}
+                      <CardActions className={classes.cardActions}>
+                          
                         <Button size='medium' variant="contained" color="primary" onClick={() => addToCart()}>
-                        Add to Cart
+                          Add to Cart
                         </Button>
-                    </CardActions>
+                      </CardActions>
+                      <br />
+                      <Typography>Leave a Review:</Typography>
+                      <Box component="fieldset" mb={3} borderColor="transparent">
+                        <Rating
+                          name="simple-controlled"
+                          value={rating}
+                          onChange={(event, newRating) => {
+                            setRating(newRating);
+
+                            let tempNumRev = product.num_reviews + 1
+                            setNumReviews(tempNumRev)
+                            
+                            fetch(`http://localhost:3000/products/${product.id}`, {
+                              method: 'PATCH',
+                              headers: {
+                                "Content-Type": "application/json"
+                              },
+                              body: JSON.stringify({
+                                num_reviews: tempNumRev
+                              })
+                            })
+                          }}
+                        />
+                      </Box>
                     </CardContent>
 
                 </Card>
