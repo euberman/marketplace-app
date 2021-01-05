@@ -78,7 +78,7 @@ function ProductCard(props) {
     fetch(`http://localhost:3000/users`)
     .then(res => res.json())
     .then(data => {
-      let cUSCId = data.find(u => u.id === currentUser.id).shopping_carts[0].id
+      let cUSCId = data.find(u => u.id === currentUser.id).shopping_cart.id
       fetch('http://localhost:3000/shopping_cart_products', {
         method: 'POST',
         headers: {
