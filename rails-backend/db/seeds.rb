@@ -11,9 +11,6 @@ require 'uri'
 require 'net/http'
 require 'openssl'
 
-ariel = User.create(email: "ariel.v.grubbs@gmail.com", password: "1234", first_name: "Ariel", last_name: "Grubbs", username: "ArielVG")
-eric = User.create(email: "euberman@gmail.com", password: "1234", first_name: "Eric", last_name: "Uberman", username: "euberman")
-
 all_products = []
 
 url = URI("https://walmart.p.rapidapi.com/products/list?cat_id=0&pref_store=2648%2C5434%2C2031%2C2280%2C5426&sort=best_seller&page=1&zipcode=94066")
@@ -131,6 +128,11 @@ all_products.length
 all_products.each do |product|
     same_id = Product.all.select{|p| p[:product_id] == product["productId"]}
     if same_id.length == 0
-        Product.create(brand: product["brand"][0], product_id: product["productId"], department: product["department"], title: product["title"], description: product["description"], image_url: product["imageUrl"], customer_rating: product["customerRating"], num_reviews: product["numReviews"], in_stock: product["inventory"]["availableOnline"], price: product["primaryOffer"]["offerPrice"], two_day_shipping_eligible: product["twoDayShippingEligible"], store_id: product["sellerId"], store_name: product["sellerName"])
+        prod = Product.new(brand: product["brand"][0], product_id: product["productId"], department: product["department"], title: product["title"], description: product["description"], image_url: product["imageUrl"], customer_rating: product["customerRating"], num_reviews: product["numReviews"], in_stock: product["inventory"]["availableOnline"], price: product["primaryOffer"]["offerPrice"], two_day_shipping_eligible: product["twoDayShippingEligible"], store_id: product["sellerId"], store_name: product["sellerName"])
+        if prod[:price] == nil
+            prng = Random.new
+            prod[:price] = (prng.rand(5.0..30.0) * 100).round / 100.0
+        end
+        prod.save
     end
 end
