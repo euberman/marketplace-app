@@ -23,7 +23,6 @@ ActiveRecord::Schema.define(version: 2021_01_05_162706) do
 
   create_table "orders", force: :cascade do |t|
     t.integer "user_id"
-    t.string "total"
     t.string "payment"
     t.string "address"
     t.boolean "shipped"
@@ -80,8 +79,8 @@ ActiveRecord::Schema.define(version: 2021_01_05_162706) do
     t.string "email"
     t.string "password"
     t.string "username"
-    t.string "first_name"
-    t.string "last_name"
+    t.string "firstname"
+    t.string "lastname"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -59,6 +59,7 @@ function SignupForm() {
     let passwordVar = e.target.querySelector('#password').value
     let firstNameVar = e.target.querySelector('#firstName').value
     let lastNameVar = e.target.querySelector('#lastName').value
+    debugger
 
     fetch('http://localhost:3000/users', {
       method: 'POST',
@@ -68,8 +69,8 @@ function SignupForm() {
       body: JSON.stringify({
         "email": emailVar,
         "password": passwordVar,
-        "first_name": firstNameVar,
-        "last_name": lastNameVar
+        "firstname": firstNameVar,
+        "lastname": lastNameVar
       })
     })
     .then(res => res.json())
@@ -78,8 +79,8 @@ function SignupForm() {
       let tempUser = {
         email: data.email,
         password: data.password,
-        first_name: data.first_name,
-        last_name: data.last_name
+        firstname: data.firstname,
+        lastname: data.lastname
       }
       setUser(tempUser)
       history.push('/dashboard')
