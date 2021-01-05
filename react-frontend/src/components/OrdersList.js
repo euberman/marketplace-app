@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,7 +15,7 @@ function createData(id, date, name, shipTo, paymentMethod, amount) {
   return { id, date, name, shipTo, paymentMethod, amount };
 }
 
-const rows = [
+let rows = [
   createData(0, '16 Mar, 2019', 'Elvis Presley', 'Tupelo, MS', 'VISA ⠀•••• 3719', 312.44),
   createData(1, '16 Mar, 2019', 'Paul McCartney', 'London, UK', 'VISA ⠀•••• 2574', 866.99),
   createData(2, '16 Mar, 2019', 'Tom Scholz', 'Boston, MA', 'MC ⠀•••• 1253', 100.81),
@@ -33,8 +33,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
- function OrdersList() {
+function OrdersList() {
   const classes = useStyles();
+
+  useEffect(() => {
+    fetch('http://localhost:3000/orders')
+    .then(res => res.json())
+    .then(data => {
+
+      data.forEach(order => {
+        let name = [order.user.firstname, order.user.lastname].join(' ')
+
+        let amount = 0
+
+        let date = order.created_at.split("T")
+        order.products.forEach(prod => amount + parseFloat(prod.price))
+        // order = order.map(order => order.user === currentUser.id)
+        rows.push(createData(order.id, order.created_at, name, order.address, order.payment, amount))
+        debugger
+      })
+    })
+  }, [])
+
   return (
     <React.Fragment>
       <Title>Recent Orders</Title>
