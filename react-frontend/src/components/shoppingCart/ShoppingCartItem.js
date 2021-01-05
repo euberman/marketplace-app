@@ -1,22 +1,26 @@
 import React from 'react';
-import { useState } from 'react-redux';
+import { useState, useDispatch } from 'react-redux';
 
 import {IconButton, Badge, Typography, Grid, Button, Box} from '@material-ui/core';
 
 
 function ShoppingCartItem(props){
   
-  const {items, setItems} = useState()
-
+  // const {items, setItems} = useState()
+  const dispatch = useDispatch();
   const handleRemoveFromCart = (e) => {
-    this.props.removeFromCart(this.props.product, this.props.indexInCart);
+    //this.props.removeFromCart(this.props.product, this.props.indexInCart);
+    console.log('Remove from cart event fired')
+    dispatch({type: 'REMOVE_FROM_CART', product: props.product})
   }
+  
 
   const handleQuantityChange = (e) => {
-    this.props.item.quantityInCart = e.target.value;
-    // Update total value
-    this.forceUpdate();
-    this.props.updateAmountToPay(this.props.item);
+    console.log('handleQuantityChange in cart event fired')
+    // this.props.item.quantityInCart = e.target.value;
+    // // Update total value
+    // this.forceUpdate();
+    // this.props.updateAmountToPay(this.props.item);
   }
 
   
@@ -24,13 +28,14 @@ function ShoppingCartItem(props){
   return (
     <React.Fragment>
       <tr className="items-in-cart">
-        <td><img src={this.props.product.image} alt={"producIimage"}></img></td>
-        <td>{this.props.product.name}</td>
-        <td>${this.props.product.price}</td>
+        <td><img width={75} height={75} src={props.product.image_url} alt={"producIimage"}></img></td>
+        <td>{props.product.name}</td>
+        <td>${props.product.price}</td>
         <td>
           <input type="number" name="quantity" min="1" max="10" onChange={handleQuantityChange} />
         </td>
-        <td>${this.props.product.price * this.props.product.quantity}</td>
+        {/* <td>${props.product.price * props.product.quantity}</td> */}
+        <td>${props.product.price}</td>
         <td><i className="fas fa-trash"
               onClick={handleRemoveFromCart}></i></td>
       </tr>

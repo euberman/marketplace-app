@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {useDispatch} from 'react-redux'
 // import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Rating from '@material-ui/lab/Rating';
 import {Box} from '@material-ui/core';
+
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -51,9 +53,12 @@ const useStyles = makeStyles((theme) => ({
 
 function ProductCard(props) {
   const classes = useStyles();
-  const addToCart = (e) => {
-    const product = props.product
+  const dispatch = useDispatch();
+  
+  const addToCart = () => {
+    dispatch({type: 'ADD_TO_CART', product: props.product})
   }
+  // const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <React.Fragment>
@@ -79,7 +84,7 @@ function ProductCard(props) {
           
           <CardActions className={classes.cardActions}>
             <Box>{ props.product.in_stock ? 'In-Stock' : 'Unavailable Online'}</Box>
-            <Button onClick={(e) => this.addToCart()} className={classes.addToCartBtn} size='medium' variant="contained" color="primary">
+            <Button onClick={() => addToCart()} className={classes.addToCartBtn} size='medium' variant="contained" color="primary">
               Add to Cart
             </Button>
           </CardActions>

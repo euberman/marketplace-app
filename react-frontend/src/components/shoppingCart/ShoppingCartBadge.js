@@ -7,12 +7,13 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 function ShoppingCartBadge(){
   const shoppingCartItems = useSelector(state => state.shoppingCart.items)
-  const showOverlay = () => {
+  function showOverlay() {
+    console.log('Shopping Cart Btn was clicked')
     document.getElementById('overlay').style.display = 'flex';
     document.querySelector('body').style.overflow = 'hidden';
   }
   return (
-    <IconButton color="inherit" onClick={()=>this.showOverlay()}>
+    <IconButton color="inherit" onClick={()=>showOverlay()}>
       <Badge badgeContent={shoppingCartItems.length} color="secondary">
         <ShoppingCartIcon />
       </Badge>
