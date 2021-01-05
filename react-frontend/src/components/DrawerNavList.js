@@ -7,21 +7,38 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import LayersIcon from '@material-ui/icons/Layers';
+import { NavLink } from 'react-router-dom';
 
 export const mainListItems = (
   <div>
-    <ListItem button>
+    <NavLink to="/dashboard">
+      <ListItem button>
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+        <ListItemText primary="Dashboard" />
+      </ListItem>
+    </NavLink>
+    {/* <ListItem button>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
-    </ListItem>
-    <ListItem button>
+    </ListItem> */}
+    <NavLink to="/dashboard/orders">
+      <ListItem button>
+        <ListItemIcon>
+          <ShoppingCartIcon />
+        </ListItemIcon>
+        <ListItemText primary="Orders" />
+      </ListItem>
+    </NavLink>
+    {/* <ListItem button>
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
       <ListItemText primary="Orders" />
-    </ListItem>
+    </ListItem> */}
   </div>
 );
 
