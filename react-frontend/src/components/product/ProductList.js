@@ -24,13 +24,12 @@ const useStyles = makeStyles((theme) => ({
 function ProductList() {
   const classes = useStyles();
   const products = useSelector(state => state.products.allProducts)
-  debugger
 
   return (
     <React.Fragment>
       <Grid container className={classes.pList} spacing={2}>
         {
-          products.map(item => <Link to={`http://localhost:3001/dashboard/${item.id}`}><ProductCard product={item} key={item.id} /></Link>)
+          products.map(item => <ProductCard product={item} key={item.id} />)
         }
       </Grid>
     </React.Fragment>

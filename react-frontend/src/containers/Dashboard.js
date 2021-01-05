@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import {useSelector, useDispatch } from 'react-redux';
+import { getProducts } from '../_actions/productActions'
 import {
   BrowserRouter as Router,
   Switch,

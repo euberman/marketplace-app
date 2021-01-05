@@ -13,10 +13,9 @@ import LoginForm from './components/LoginForm';
 // import ProductPage from './components/product/ProductPage';
 
 
-
 function App() {
 
-    const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
     useEffect(()=> {
       fetch('http://localhost:3000/products')

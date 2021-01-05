@@ -1,13 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-// import {
-//   BrowserRouter as Router,
-//   Switch,
-//   Route,
-//   Link,
-//   useParams,
-//   useRouteMatch
-// } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import { useHistory } from "react-router-dom";
 
 // import AppBar from '@material-ui/core/AppBar';
@@ -20,7 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Rating from '@material-ui/lab/Rating';
-import {Box} from '@material-ui/core';
+import { Box } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -59,6 +52,10 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
   },
   notInStock: {textAlign: 'center'},
+  brandLink: {
+    color: '#212121',
+    textDecoration: null
+  }
 }));
 
 function ProductCard(props) {
@@ -75,7 +72,6 @@ function ProductCard(props) {
 
   const addToCart = () => {
     console.log(currentUser)
-    debugger
 
     //optimistically add element to cart and stuff.
 
@@ -111,8 +107,8 @@ function ProductCard(props) {
               $ {props.product.price}
             </Typography>
           
-            <Typography>
-              {props.product.brand}
+            <Typography className={classes.title}>
+              <Link to={`/dashboard/${props.product.id}`} className={classes.brandLink}>{props.product.brand}</Link>
             </Typography>
             <Typography>
               {props.product.title}
