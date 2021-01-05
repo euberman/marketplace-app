@@ -7,7 +7,7 @@ class ShoppingCartProductsController < ApplicationController
     def show
         shopping_cart_product = ShoppingCartProduct.find_by(id: params[:id])
         if shopping_cart_product
-            render json: product.slice(:id, :shopping_cart_id, :product_id)
+            render json: shopping_cart_product.slice(:id, :shopping_cart_id, :product_id)
         else
             render json: { message: 'Item not found' }
         end

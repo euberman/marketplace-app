@@ -1,18 +1,4 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 
-#Note: Do not ever rails db:drop!!! These requests don't work very well when run all together for some reason, so if you db:drop, you need to run each of these individually inside the rails console.
-require 'uri'
-require 'net/http'
-require 'openssl'
-
-ariel = User.create(email: "ariel.v.grubbs@gmail.com", password: "1234", first_name: "Ariel", last_name: "Grubbs", username: "ArielVG")
-eric = User.create(email: "euberman@gmail.com", password: "1234", first_name: "Eric", last_name: "Uberman", username: "euberman")
 
 all_products = []
 
@@ -116,7 +102,7 @@ url9 = URI("https://walmart.p.rapidapi.com/products/list?cat_id=0&pref_store=542
 
 http9 = Net::HTTP.new(url9.host, url9.port)
 http9.use_ssl = true
-http7.verify_mode = OpenSSL::SSL::VERIFY_NONE
+http9.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
 request9 = Net::HTTP::Get.new(url9)
 request9["x-rapidapi-key"] = '4c56e34434mshb05b44857d9af7bp12ac07jsnc8378f9b70ea'
@@ -131,11 +117,26 @@ all_products.length
 all_products.each do |product|
     same_id = Product.all.select{|p| p[:product_id] == product["productId"]}
     if same_id.length == 0
-        prod = Product.new(brand: product["brand"][0], product_id: product["productId"], department: product["department"], title: product["title"], description: product["description"], image_url: product["imageUrl"], customer_rating: product["customerRating"], num_reviews: product["numReviews"], in_stock: product["inventory"]["availableOnline"], price: product["primaryOffer"]["offerPrice"], two_day_shipping_eligible: product["twoDayShippingEligible"], store_id: product["sellerId"], store_name: product["sellerName"])
-        if prod[:price] == nil
+        prod = Product.new(brand: product["brand"][0], product_id: product["productId"], department: product["department"], title: product["title"], description: product["description"], image_url: product["imageUrl"], customer_rating: product["customerRating"], num_reviews: product["numReviews"], two_day_shipping_eligible: product["twoDayShippingEligible"], store_id: product["sellerId"], store_name: product["sellerName"])
+        
+        if product["inventory"]["availableOnline"]
+            prod[:in_stock] = product["inventory"]["availableOnline"]
+        else
+            prod[:in_stock] = false
+        end
+
+        if product["primaryOffer"]["offerPrice"]
+            prod[:price] = product["primaryOffer"]["offerPrice"]
+        else
             prng = Random.new
             prod[:price] = (prng.rand(5.0..30.0) * 100).round / 100.0
         end
         prod.save
     end
 end
+
+user1 = User.create(firstname: "Ariel", lastname: "Grubbs", email: "arielvictor1234@gmail.com", password: "1234")
+shop1 = ShoppingCart.create(user_id: user1[:id])
+order1 = Order.create(user_id: user1[:id], payment: "Visa **** 9582", address: "123 Who Cares Ave., Houston Texas", shipped: true)
+order_item1 = OrderItem.create(order_id: order1[:id], product_id: 1)
+order_item2 = OrderItem.create(order_id: order1[:id], product_id: 2)
