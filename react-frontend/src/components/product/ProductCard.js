@@ -1,4 +1,8 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
+
 import {useDispatch} from 'react-redux'
 // import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
@@ -10,7 +14,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Rating from '@material-ui/lab/Rating';
-import {Box} from '@material-ui/core';
+import { Box } from '@material-ui/core';
 
 
 
@@ -48,6 +52,11 @@ const useStyles = makeStyles((theme) => ({
     color: 'red',
     fontSize: 17,
     fontWeight: 'bold',
+  },
+  notInStock: {textAlign: 'center'},
+  brandLink: {
+    color: '#212121',
+    textDecoration: null
   }
 }));
 
@@ -70,8 +79,10 @@ function ProductCard(props) {
             <Typography className={classes.price}>
               $ {props.product.price}
             </Typography>
-            <Typography>
-              {props.product.brand}
+          
+            <Typography className={classes.title}>
+              <Link to={`/dashboard/${props.product.id}`} className={classes.brandLink}>{props.product.brand}</Link>
+
             </Typography>
             <Typography>
               {props.product.title}

@@ -10,10 +10,9 @@ import SignupForm from './components/SignupForm';
 import LoginForm from './components/LoginForm';
 
 
-
 function App() {
 
-    const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
     useEffect(()=> {
       fetch('http://localhost:3000/products')

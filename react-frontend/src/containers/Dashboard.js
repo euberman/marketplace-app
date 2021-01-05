@@ -1,5 +1,14 @@
 import React, { useState, useEffect} from 'react';
 import {useSelector, useDispatch } from 'react-redux';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  // Link,
+  useParams,
+  useRouteMatch
+} from "react-router-dom";
+
 
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,6 +21,7 @@ import { mainListItems, secondaryListItems } from '../components/DrawerNavList';
 import ProductList from '../components/product/ProductList'
 // import ShoppingCartBadge from '../components/shoppingCart/ShoppingCartBadge'
 import ShoppingCart from '../components/shoppingCart/ShoppingCart'
+import ProductPage from '../components/product/ProductPage'
 
     const drawerWidth = 240;
 
@@ -117,6 +127,8 @@ function Dashboard() {
 
   const products = useSelector(state => state.products.allProducts)
 
+  let { path, url } = useRouteMatch();
+
   return (
     <div className={clsx(classes.root)}  >
       <CssBaseline />
@@ -151,33 +163,44 @@ function Dashboard() {
           <List>{secondaryListItems}</List>
       </Drawer>
 
-      <main className={classes.content}>
-          <div className={classes.appBarSpacer} />
-          <Container maxWidth="lg" className={classes.container}>
-              <Modal aria-labelledby="transition-modal-title" aria-describedby="transition-modal-description" 
-                className={classes.modal}
-                open={shoppingCartOpen}
-                onClose={handleShoppingCartClose}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                  timeout: 500,
-                }}
-              >
-                <Fade in={shoppingCartOpen}>
-                  <div className={classes.paper}>
-                    <ShoppingCart handleShoppingCartClose={handleShoppingCartClose}/>
-                  </div>
-                </Fade>
-              </Modal>
-          
-              <ProductList />
 
-              {/* <ReactModal isOpen={this.state.showModal} contentLabel="Shopping Cart">
-              <ShoppingCart />
-          </ReactModal>   */}
-          </Container>
-      </main>
+      <Switch>
+        <Route exact path={path}>
+          <main className={classes.content}>
+            <div className={classes.appBarSpacer} />
+            <Container maxWidth="lg" className={classes.container}>
+                <Modal aria-labelledby="transition-modal-title" aria-describedby="transition-modal-description" 
+                  className={classes.modal}
+                  open={shoppingCartOpen}
+                  onClose={handleShoppingCartClose}
+                  closeAfterTransition
+                  BackdropComponent={Backdrop}
+                  BackdropProps={{
+                    timeout: 500,
+                  }}
+                >
+                  <Fade in={shoppingCartOpen}>
+                    <div className={classes.paper}>
+                      <ShoppingCart handleShoppingCartClose={handleShoppingCartClose}/>
+                    </div>
+                  </Fade>
+                </Modal>
+            
+                <ProductList />
+
+                {/* <ReactModal isOpen={this.state.showModal} contentLabel="Shopping Cart">
+                <ShoppingCart />
+            </ReactModal>   */}
+            </Container>
+          </main>
+        </Route>
+        <Route path={`${path}/:productId`}>
+          <main className={classes.content}>
+            <div className={classes.appBarSpacer} />
+            <ProductPage />
+          </main>
+        </Route>
+      </Switch>
     </div>
   );
 }
