@@ -67,13 +67,14 @@ const useStyles = makeStyles((theme) => ({
 
 function ProductPage() {
     const classes = useStyles();
+    const dispatch = useDispatch();
 
     let { productId } = useParams();
     const products = useSelector(state => state.products.allProducts)
     let product = products.find(p => p.id === parseInt(productId))
 
     const addToCart = () => {
-
+      dispatch({type: 'ADD_TO_CART', product: product})
     }
 
     // const handleSubmit = (e) => {
