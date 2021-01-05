@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
 // import Rating from '@material-ui/lab/Rating';
-import {Toolbar, Paper, Typography, IconButton, Badge, Grid, Card, Button} from '@material-ui/core';
+import {Toolbar, AppBar, Paper, Typography, IconButton, Badge, Grid, Card, Button} from '@material-ui/core';
 
 
 import ShoppingCartItem from './ShoppingCartItem'
@@ -21,55 +21,36 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-// const initialState = {count: 0};
 
-// function reducer(state, action) {
-//   switch (action.type) {
-//     case 'increment':
-//       return {count: state.count + 1};
-//     case 'decrement':
-//       return {count: state.count - 1};
-//     default:
-//       throw new Error();
-//   }
-// }
-
-// function Counter() {
-//   const [state, dispatch] = useReducer(reducer, initialState);
-//   return (
-//     <>
-//       Count: {state.count}
-//       <button onClick={() => dispatch({type: 'decrement'})}>-</button>
-//       <button onClick={() => dispatch({type: 'increment'})}>+</button>
-//     </>
-//   );
-// }
 function ShoppingCart(props) {
 
   const classes = useStyles();
 
   const shoppingCartItems = useSelector(state => state.shoppingCart.items)
   const subTotal          = useSelector(state => state.shoppingCart.subTotal)
+
   let itemCount = shoppingCartItems.length
   const handleShoppingCartClose = props.handleShoppingCartClose
+
   return (
     <React.Fragment>
       <div className={classes.sCart}>
-        <section id="shopping-cart">
-          <Toolbar className={classes.toolbar}>
-              <Typography component="h1" variant="h6"> Wally-World MarketPlace </Typography>
-              <Button edge="end" color="inherit" onClick={handleShoppingCartClose}>
-                  Close
-              </Button>
-              {/* <ShoppingCartBadge  onClick={handleShoppingCartOpen} 
-                                  className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-                                  itemCount={itemCount}/> */}
-          </Toolbar>
+          <AppBar>
+            <Toolbar className={classes.toolbar}>
+                <Typography component="h1" variant="h6"> Wally-World MarketPlace </Typography>
+                <Button edge="end" color="inherit" onClick={handleShoppingCartClose}>
+                    Close
+                </Button>
+                {/* <ShoppingCartBadge  onClick={handleShoppingCartOpen} 
+                                    className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+                                    itemCount={itemCount}/> */}
+            </Toolbar>
+          </AppBar>
           <table>
             <thead>
               <tr>
+                <th></th>
                 <th>Product</th>
-                <th>Name</th>
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Total</th>
@@ -93,7 +74,6 @@ function ShoppingCart(props) {
           </div>
           <button id="checkout" 
             disabled={itemCount === 0 ? true : false} >Checkout</button>
-        </section>
       </div>
     </React.Fragment>
   )

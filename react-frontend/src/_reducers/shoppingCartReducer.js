@@ -1,10 +1,20 @@
+
+const itemReducer = (sum,item)=> {sum+=item}
+
+var cachedShoppingCart = localStorage;
 const initialState = {
   items: [],
   subtotal: 0,
   count: 0,
   showModal: false
 }
-const itemReducer = (sum,item)=> {sum+=item}
+
+const cachedState = {
+  items: [],
+  subtotal: 0,
+  count: 0,
+  showModal: false
+}
 
 const shoppingCartReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -20,7 +30,7 @@ const shoppingCartReducer = (state = initialState, action) => {
       return {
         ...state,
         items: state.items.map(item => {
-            if (item.id === action.product.id) {
+            if (item.product_id === action.product.product_id) {
               return action.product
             } else {
               return item

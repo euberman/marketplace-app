@@ -65,6 +65,32 @@ function ProductCard(props) {
   const dispatch = useDispatch();
   
   const addToCart = () => {
+    const currentStateCartItems = useSelector(state => state.shoppingCart.items)
+    const productInCart = currentStateCartItems.find(({ product_id }) => product_id === props.product.product_id)
+    console.log('productInCart', productInCart)
+    let cartItem;
+
+    if (productInCart) {
+      let updateQty = productInCart.qty + 1
+      let updatedSubTotal = updatedQty * productInCart.price
+      cartItem = {
+        ...productInCart,
+        qty: updateQty ,
+        subTotal : updatedSubTotal
+      }
+    } else {
+      cartItem = {
+        image_url: props.product.image_url,
+        title: props.product.title,
+        qty: 1,
+        product_id: props.product.product_id,
+        price: props.product.price,
+        subTotal: props.product.price
+      }
+    }
+    // const current
+    const currentLocalItems = Window.localStorage.getItem('cartItems')
+    
     dispatch({type: 'ADD_TO_CART', product: props.product})
   }
   // const [state, dispatch] = useReducer(reducer, initialState);

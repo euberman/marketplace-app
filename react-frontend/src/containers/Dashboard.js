@@ -93,13 +93,9 @@ import ProductPage from '../components/product/ProductPage'
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
       },
-      modalOpen: {
+      modal: {
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
-      modalClose: {
-        display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
       },
