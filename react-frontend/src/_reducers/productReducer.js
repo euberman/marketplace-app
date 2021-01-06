@@ -1,7 +1,8 @@
 //I manage the products.
 const initialState = {
     allProducts: [],
-    currentProduct: null
+    currentProduct: null,
+    sortChar: ''
 }
 
 const productReducer = (state = initialState, action) => {
@@ -19,11 +20,11 @@ const productReducer = (state = initialState, action) => {
             currentProduct: action.product
         }
 
-    // case 'ADD_TO_CART':
-    //     return {
-    //         ...state,
-    //         currentProduct: action.product
-    //     }
+    case 'SORT_PRODUCTS':
+        return {
+            ...state,
+            sortChar: action.sortChar
+        }
   
     default:
         return state;
