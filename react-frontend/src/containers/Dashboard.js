@@ -94,13 +94,9 @@ import OrdersList from 'components/OrdersList';
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
       },
-      modalOpen: {
+      modal: {
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
-      modalClose: {
-        display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
       },
@@ -124,7 +120,7 @@ function Dashboard() {
 
 
   const shoppingCartItems = useSelector(state => state.shoppingCart.items)
-  let itemCount = shoppingCartItems.length
+  
 
   const products = useSelector(state => state.products.allProducts)
 
@@ -146,9 +142,6 @@ function Dashboard() {
                     <ShoppingCartIcon />
                 </Badge>
             </IconButton>
-            {/* <ShoppingCartBadge  onClick={handleShoppingCartOpen} 
-                                className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-                                itemCount={itemCount}/> */}
         </Toolbar>
       </AppBar>
 

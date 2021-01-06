@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
 // import Rating from '@material-ui/lab/Rating';
-import {Toolbar, Paper, Typography, IconButton, Badge, Grid, Card, Button} from '@material-ui/core';
-
+import {Toolbar, AppBar, Paper, Box, Typography, IconButton, Badge, Grid, Card, Button} from '@material-ui/core';
+// import { flexbox } from '@material-ui/system';
 
 import ShoppingCartItem from './ShoppingCartItem'
 // import { mergeClasses } from '@material-ui/styles';
@@ -16,60 +16,56 @@ const useStyles = makeStyles((theme) => ({
     width:800,
     display: 'flex',
     flexFlow: 'column',
-    paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3),
+    alignContent: 'stretch',
+    background: 'grey'
+  },
+  topBar: {
+    height: 50,
+    width:'100%',
+    display: 'flex',
+    flexFlow: 'row',
+    alignItems: 'center',
+    alignContent: 'stretch',
+    background: 'blue'
+  },
+  topBarTitle: {
+    flexGrow: 1,
+    width: '80%'
+  },
+  topBarClose: {
+    width:'10%',
+    background: 'yellow'
   }
 }));
 
-// const initialState = {count: 0};
 
-// function reducer(state, action) {
-//   switch (action.type) {
-//     case 'increment':
-//       return {count: state.count + 1};
-//     case 'decrement':
-//       return {count: state.count - 1};
-//     default:
-//       throw new Error();
-//   }
-// }
-
-// function Counter() {
-//   const [state, dispatch] = useReducer(reducer, initialState);
-//   return (
-//     <>
-//       Count: {state.count}
-//       <button onClick={() => dispatch({type: 'decrement'})}>-</button>
-//       <button onClick={() => dispatch({type: 'increment'})}>+</button>
-//     </>
-//   );
-// }
 function ShoppingCart(props) {
 
   const classes = useStyles();
 
   const shoppingCartItems = useSelector(state => state.shoppingCart.items)
   const subTotal          = useSelector(state => state.shoppingCart.subTotal)
+
   let itemCount = shoppingCartItems.length
   const handleShoppingCartClose = props.handleShoppingCartClose
+
   return (
     <React.Fragment>
       <div className={classes.sCart}>
-        <section id="shopping-cart">
-          <Toolbar className={classes.toolbar}>
+          <Box display="flex" className={classes.topBar} >
+            <Box className={classes.topBarTitle}>
               <Typography component="h1" variant="h6"> Wally-World MarketPlace </Typography>
-              <Button edge="end" color="inherit" onClick={handleShoppingCartClose}>
-                  Close
-              </Button>
-              {/* <ShoppingCartBadge  onClick={handleShoppingCartOpen} 
-                                  className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-                                  itemCount={itemCount}/> */}
-          </Toolbar>
+            </Box>
+            <Box className={classes.topBarClose}>
+              <Button edge="end" color="inherit" onClick={handleShoppingCartClose}> Close </Button>
+            </Box>
+
+          </Box>
           <table>
             <thead>
               <tr>
+                <th></th>
                 <th>Product</th>
-                <th>Name</th>
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Total</th>
@@ -89,11 +85,10 @@ function ShoppingCart(props) {
           <div id="totals">
             <span>Cart Totals</span>
             <span>Number of items: {itemCount}</span>
-            <span>Total: ${subTotal}</span>
+            <span>Total: ${subTotal.toFixed(2)}</span>
           </div>
           <button id="checkout" 
             disabled={itemCount === 0 ? true : false} >Checkout</button>
-        </section>
       </div>
     </React.Fragment>
   )

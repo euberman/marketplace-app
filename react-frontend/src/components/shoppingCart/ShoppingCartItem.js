@@ -1,15 +1,16 @@
 import React from 'react';
-import { useState, useDispatch } from 'react-redux';
+import { useState, useSelector, useDispatch } from 'react-redux';
 
 import {IconButton, Badge, Typography, Grid, Button, Box} from '@material-ui/core';
 
 
 function ShoppingCartItem(props){
-  
+  // const products = useSelector(state => state.products.allProducts)
   // const {items, setItems} = useState()
   const dispatch = useDispatch();
   const handleRemoveFromCart = (e) => {
     //this.props.removeFromCart(this.props.product, this.props.indexInCart);
+    
     console.log('Remove from cart event fired')
     dispatch({type: 'REMOVE_FROM_CART', product: props.product})
   }
@@ -29,15 +30,14 @@ function ShoppingCartItem(props){
     <React.Fragment>
       <tr className="items-in-cart">
         <td><img width={75} height={75} src={props.product.image_url} alt={"producIimage"}></img></td>
-        <td>{props.product.name}</td>
+        <td>{props.product.title}</td>
         <td>${props.product.price}</td>
         <td>
-          <input type="number" name="quantity" min="1" max="10" onChange={handleQuantityChange} />
+          <input value={props.product.qty || 1} type="number" name="quantity" min="1" max="10" onChange={handleQuantityChange} />
         </td>
         {/* <td>${props.product.price * props.product.quantity}</td> */}
-        <td>${props.product.price}</td>
-        <td><i className="fas fa-trash"
-              onClick={handleRemoveFromCart}></i></td>
+        <td>${props.product.subTotal}</td>
+        <td><i className="fas fa-trash" onClick={handleRemoveFromCart}></i></td>
       </tr>
     </React.Fragment>
   )
