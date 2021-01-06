@@ -17,7 +17,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { signupNewUser } from '../_actions/userActions';
-
+import { getLocalCurrentUser, setLocalCurrentUser } from '../localServices';
 
     const useStyles = makeStyles((theme) => ({
       paper: {
@@ -74,7 +74,7 @@ function SignupForm() {
     })
     .then(res => res.json())
     .then((data) => {
-      dispatch(signupNewUser(data))
+      
       let tempUser = {
         email: data.email,
         password: data.password,
@@ -82,6 +82,7 @@ function SignupForm() {
         lastname: data.lastname
       }
       setUser(tempUser)
+      dispatch(signupNewUser(data))
       history.push('/dashboard')
     })
   }
