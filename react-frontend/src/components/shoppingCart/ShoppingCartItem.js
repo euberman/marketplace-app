@@ -8,6 +8,8 @@ function ShoppingCartItem(props){
   // const products = useSelector(state => state.products.allProducts)
   // const {items, setItems} = useState()
   const dispatch = useDispatch();
+  const shoppingCartState = useSelector(state => state.shoppingCart)
+
   const handleRemoveFromCart = (e) => {
     //this.props.removeFromCart(this.props.product, this.props.indexInCart);
     
@@ -18,12 +20,25 @@ function ShoppingCartItem(props){
 
   const handleQuantityChange = (e) => {
     console.log('handleQuantityChange in cart event fired')
-    // this.props.item.quantityInCart = e.target.value;
-    // // Update total value
-    // this.forceUpdate();
-    // this.props.updateAmountToPay(this.props.item);
+
+    const cartItem = props.product
+    // let newCartTotal;
+    let updatedQty = cartItem.qty + 1;
+    let updatedSubTotal = updatedQty * cartItem.price;
+    const updatedCartItem = {
+        ...cartItem,
+        qty: updatedQty,
+        subTotal : parseFloat(updatedSubTotal)
+    }
+    let cartTotal = shoppingCartState.subTotal + cartItem.price
+    dispatch({
+        type: 'UPDATE_CART_ITEM', 
+        subTotal: cartTotal,
+        product: updatedCartItem
+    })
   }
 
+    
   
 
   return (

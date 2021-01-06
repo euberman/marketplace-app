@@ -18,6 +18,7 @@ import Container from '@material-ui/core/Container';
 
 import { login } from '../_actions/userActions'
 import { useHistory } from "react-router-dom";
+import { getLocalCurrentUser, setLocalCurrentUser } from '../localServices';
 
 
     const useStyles = makeStyles((theme) => ({
@@ -56,17 +57,19 @@ function LoginForm() {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    let userExists = false
+    let userExists = getLocalCurrentUser()
     let loginUser = allUsers.find(user => {
       if (user.email === e.target.querySelector('#email').value && user.password === e.target.querySelector('#password').value){
-        userExists = true
+        setLocalCurrentUser(user)
         return user
       }
     })
-    dispatch(login(loginUser))
+    
     // dispatch({type:'CLEAR_FORM'})
 
     if (userExists){
+      console.log('userExists', userExists)
+      dispatch(login(userExists))
       history.push('/dashboard')
     }
     
