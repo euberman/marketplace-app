@@ -120,7 +120,7 @@ function ProductCard(props) {
               {props.product.title}
             </Typography>
             <Box className={classes.cardActions}>
-              <Rating name="half-rating-read" value={props.product.customer_rating} precision={0.5} readOnly />
+              <Rating name="half-rating-read" value={parseFloat(props.product.customer_rating)} precision={0.5} readOnly />
               {props.product.num_reviews}
             </Box>
           </CardContent>

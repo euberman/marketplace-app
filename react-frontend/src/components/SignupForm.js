@@ -59,7 +59,6 @@ function SignupForm() {
     let passwordVar = e.target.querySelector('#password').value
     let firstNameVar = e.target.querySelector('#firstName').value
     let lastNameVar = e.target.querySelector('#lastName').value
-    debugger
 
     fetch('http://localhost:3000/users', {
       method: 'POST',

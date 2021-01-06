@@ -1,4 +1,4 @@
-//I manage the properties.
+//I manage the products.
 const initialState = {
     allProducts: [],
     currentProduct: null

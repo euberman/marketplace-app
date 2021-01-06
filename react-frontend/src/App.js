@@ -25,6 +25,11 @@ function App() {
       .then(data => {
         dispatch(getUsers(data))
       })
+      fetch('http://localhost:3000/orders')
+      .then(res => res.json())
+      .then(data => {
+        dispatch({type: 'GET_ORDERS', orders: data})
+      })
     }, [])
 
 
