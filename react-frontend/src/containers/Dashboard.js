@@ -120,7 +120,7 @@ function Dashboard() {
 
 
   const shoppingCartItems = useSelector(state => state.shoppingCart.items)
-  let itemCount = shoppingCartItems.length
+  
 
   const products = useSelector(state => state.products.allProducts)
 
@@ -142,9 +142,6 @@ function Dashboard() {
                     <ShoppingCartIcon />
                 </Badge>
             </IconButton>
-            {/* <ShoppingCartBadge  onClick={handleShoppingCartOpen} 
-                                className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-                                itemCount={itemCount}/> */}
         </Toolbar>
       </AppBar>
 

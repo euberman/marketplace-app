@@ -50,7 +50,7 @@ function OrdersList() {
         order.products.forEach(prod => amount + parseFloat(prod.price))
         // order = order.map(order => order.user === currentUser.id)
         rows.push(createData(order.id, order.created_at, name, order.address, order.payment, amount))
-        debugger
+        // debugger
       })
     })
   }, [])

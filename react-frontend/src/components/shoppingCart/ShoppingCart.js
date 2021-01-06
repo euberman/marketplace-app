@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
 // import Rating from '@material-ui/lab/Rating';
-import {Toolbar, AppBar, Paper, Typography, IconButton, Badge, Grid, Card, Button} from '@material-ui/core';
-
+import {Toolbar, AppBar, Paper, Box, Typography, IconButton, Badge, Grid, Card, Button} from '@material-ui/core';
+// import { flexbox } from '@material-ui/system';
 
 import ShoppingCartItem from './ShoppingCartItem'
 // import { mergeClasses } from '@material-ui/styles';
@@ -16,8 +16,25 @@ const useStyles = makeStyles((theme) => ({
     width:800,
     display: 'flex',
     flexFlow: 'column',
-    paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3),
+    alignContent: 'stretch',
+    background: 'grey'
+  },
+  topBar: {
+    height: 50,
+    width:'100%',
+    display: 'flex',
+    flexFlow: 'row',
+    alignItems: 'center',
+    alignContent: 'stretch',
+    background: 'blue'
+  },
+  topBarTitle: {
+    flexGrow: 1,
+    width: '80%'
+  },
+  topBarClose: {
+    width:'10%',
+    background: 'yellow'
   }
 }));
 
@@ -35,17 +52,15 @@ function ShoppingCart(props) {
   return (
     <React.Fragment>
       <div className={classes.sCart}>
-          <AppBar>
-            <Toolbar className={classes.toolbar}>
-                <Typography component="h1" variant="h6"> Wally-World MarketPlace </Typography>
-                <Button edge="end" color="inherit" onClick={handleShoppingCartClose}>
-                    Close
-                </Button>
-                {/* <ShoppingCartBadge  onClick={handleShoppingCartOpen} 
-                                    className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-                                    itemCount={itemCount}/> */}
-            </Toolbar>
-          </AppBar>
+          <Box display="flex" className={classes.topBar} >
+            <Box className={classes.topBarTitle}>
+              <Typography component="h1" variant="h6"> Wally-World MarketPlace </Typography>
+            </Box>
+            <Box className={classes.topBarClose}>
+              <Button edge="end" color="inherit" onClick={handleShoppingCartClose}> Close </Button>
+            </Box>
+
+          </Box>
           <table>
             <thead>
               <tr>
@@ -70,7 +85,7 @@ function ShoppingCart(props) {
           <div id="totals">
             <span>Cart Totals</span>
             <span>Number of items: {itemCount}</span>
-            <span>Total: ${subTotal}</span>
+            <span>Total: ${subTotal.toFixed(2)}</span>
           </div>
           <button id="checkout" 
             disabled={itemCount === 0 ? true : false} >Checkout</button>

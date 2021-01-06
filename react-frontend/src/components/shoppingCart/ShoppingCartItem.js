@@ -36,7 +36,7 @@ function ShoppingCartItem(props){
           <input value={props.product.qty || 1} type="number" name="quantity" min="1" max="10" onChange={handleQuantityChange} />
         </td>
         {/* <td>${props.product.price * props.product.quantity}</td> */}
-        <td>${props.product.price}</td>
+        <td>${props.product.subTotal}</td>
         <td><i className="fas fa-trash" onClick={handleRemoveFromCart}></i></td>
       </tr>
     </React.Fragment>

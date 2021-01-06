@@ -90,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
 function ProductPage() {
     const classes = useStyles();
     const dispatch = useDispatch();
-    let [rating, setRating] = useState(5)
+    let [rating, setRating] = useState(0)
 
 
     let { productId } = useParams();
