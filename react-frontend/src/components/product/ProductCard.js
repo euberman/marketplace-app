@@ -95,8 +95,6 @@ function ProductCard(props) {
         })
     }
     // newCartTotal = shoppingCartState.items.map( item => item.subTotal ).reduce( (sum,item) =>{return sum += item}, 0)
-    const obj1 = { firstname: "John", lastname: "thomson" };
-    var cust = JSON.stringify(obj1);
     
   }
   // const [state, dispatch] = useReducer(reducer, initialState);

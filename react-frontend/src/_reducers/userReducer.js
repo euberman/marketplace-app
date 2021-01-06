@@ -2,7 +2,6 @@ const initialState = {
     isLoggedIn: false,
     allUsers: [],
     currentUser: {
-        userName: '',
         password: '',
         firstName: '',
         lastName: '',
@@ -28,6 +27,7 @@ const userReducer = (state = initialState, action) => {
         case 'LOGIN':{
             return {
                 ...state,
+                isLoggedIn: true,
                 currentUser: action.user
             }
         }
@@ -37,6 +37,13 @@ const userReducer = (state = initialState, action) => {
                 isLoggedIn: true,
                 currentUser: action.user
                 // allUsers: [...state.allUsers, action.user]
+            }
+        }
+        case 'UPDATE_CURRENT_USER':{
+            return {
+                ...state,
+                isLoggedIn: true,
+                currentUser: action.user
             }
         }
         default:
