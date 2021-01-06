@@ -66,9 +66,9 @@ function LoginForm() {
     dispatch(login(loginUser))
     // dispatch({type:'CLEAR_FORM'})
 
-    // if (userExists){
-    //   history.push('/dashboard')
-    // }
+    if (userExists){
+      history.push('/dashboard')
+    }
     
   }
 

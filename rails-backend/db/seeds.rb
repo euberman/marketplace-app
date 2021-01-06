@@ -137,6 +137,6 @@ end
 
 user1 = User.create(firstname: "Ariel", lastname: "Grubbs", email: "arielvictor1234@gmail.com", password: "1234")
 shop1 = ShoppingCart.create(user_id: user1[:id])
-order1 = Order.create(user_id: user1[:id], payment: "Visa **** 9582", address: "123 Who Cares Ave., Houston Texas", shipped: true)
+order1 = Order.create(user_id: user1[:id], payment: "VISA ⠀•••• 9582", address: "123 Who Cares Ave., Houston Texas", shipped: true)
 order_item1 = OrderItem.create(order_id: order1[:id], product_id: 1)
 order_item2 = OrderItem.create(order_id: order1[:id], product_id: 2)
