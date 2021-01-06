@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import {useSelector, useDispatch } from 'react-redux';
 
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
@@ -35,25 +36,33 @@ const useStyles = makeStyles((theme) => ({
 
 function OrdersList() {
   const classes = useStyles();
+  const currentUser = useSelector(state => state.user.currentUser)
+  const data = useSelector(state => state.order.allOrders)
 
-  useEffect(() => {
-    fetch('http://localhost:3000/orders')
-    .then(res => res.json())
-    .then(data => {
+  rows = []
 
-      data.forEach(order => {
-        let name = [order.user.firstname, order.user.lastname].join(' ')
+  data.forEach(order => {
+    let name = [order.user.firstname, order.user.lastname].join(' ')
 
-        let amount = 0
+    let amount = 0
 
-        let date = order.created_at.split("T")
-        order.products.forEach(prod => amount + parseFloat(prod.price))
-        // order = order.map(order => order.user === currentUser.id)
-        rows.push(createData(order.id, order.created_at, name, order.address, order.payment, amount))
-        debugger
-      })
-    })
-  }, [])
+    const date = order.created_at.split("T")
+    order.products.forEach(prod => amount += parseFloat(prod.price))
+    amount = Math.round(amount * 100) / 100
+
+    rows.push(createData(order.id, date[0], name, order.address, order.payment, amount))
+  })
+
+  rows = rows.filter(row => row.name === [currentUser.firstname, currentUser.lastname].join(' '))
+
+  let rowsBackup = rows
+  var d = new Date()
+  rows = rows.filter(row => row.date.split("-")[2] === d.toString().split(" ")[2])
+
+  const showMoreRows = (event) => {
+    event.preventDefault()
+    rows = rowsBackup
+  }
 
   return (
     <React.Fragment>
@@ -81,7 +90,7 @@ function OrdersList() {
         </TableBody>
       </Table>
       <div className={classes.seeMore}>
-        <Link color="primary" href="#" onClick={preventDefault}>
+        <Link color="primary" href="#" onClick={(event) => showMoreRows(event)}>
           See more orders
         </Link>
       </div>
