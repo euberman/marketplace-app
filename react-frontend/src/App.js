@@ -50,7 +50,7 @@ function App() {
           }}/>
 
           <Route component={() => {
-            return <Redirect to='/dashboard' />
+            return <Redirect to='/login' />
           }}/>
         </Switch>
       </Router>
