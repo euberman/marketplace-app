@@ -3,8 +3,8 @@ const initialState = {
     allUsers: [],
     currentUser: {
         password: '',
-        firstName: '',
-        lastName: '',
+        firstname: '',
+        lastname: '',
         email: ''
     }
 }

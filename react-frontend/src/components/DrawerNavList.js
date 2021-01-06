@@ -81,48 +81,47 @@ export function SecondaryListItems() {
 
   const handleSortAlt = (e) => {
     e.preventDefault()
-    debugger
-    // if (e.target.innerText === 'All Products'){
-    //   console.log('All Products')
-    //   dispatch({type: 'SORT_PRODUCTS', sortChar: ''})
-    // } else if (e.target.innerText === 'Price'){
-    //   console.log('Price')
-    //   dispatch({type: 'SORT_PRODUCTS', sortChar: 'price'})
-    // } else if (e.target.innerText === 'Rating'){
-    //   console.log('Rating')
-    //   dispatch({type: 'SORT_PRODUCTS', sortChar: 'customer_rating'})
-    // } else if (e.target.innerText === 'Available Online'){
-    //   console.log('Available Online')
-    //   dispatch({type: 'SORT_PRODUCTS', sortChar: 'in_stock'})
-    // }
+    if (e.target.parentElement.parentElement.parentElement.querySelector("#search-target").firstElementChild.innerText === 'All Products'){
+      console.log('Alt All Products')
+      dispatch({type: 'SORT_PRODUCTS', sortChar: ''})
+    } else if (e.target.parentElement.parentElement.parentElement.querySelector("#search-target").firstElementChild.innerText === 'Price'){
+      console.log('Alt Price')
+      dispatch({type: 'SORT_PRODUCTS', sortChar: 'price'})
+    } else if (e.target.parentElement.parentElement.parentElement.querySelector("#search-target").firstElementChild.innerText === 'Rating'){
+      console.log('Alt Rating')
+      dispatch({type: 'SORT_PRODUCTS', sortChar: 'customer_rating'})
+    } else if (e.target.parentElement.parentElement.parentElement.querySelector("#search-target").firstElementChild.innerText === 'Available Online'){
+      console.log('Alt Available Online')
+      dispatch({type: 'SORT_PRODUCTS', sortChar: 'in_stock'})
+    }
   }
 
   return (
     <div>
       <ListSubheader inset>Sort Products</ListSubheader>
-      <ListItem button onClick={(e) => handleSort(e)} id="searchTarget">
+      <ListItem button onClick={(e) => handleSort(e)} >
         <ListItemIcon>
           <LayersIcon onClick={(e) => handleSortAlt(e)}/>
         </ListItemIcon>
-        <ListItemText primary="All Products" />
+        <ListItemText primary="All Products" id="search-target"/>
       </ListItem>
       <ListItem button onClick={(e) => handleSort(e)}>
         <ListItemIcon>
           <AttachMoneyIcon onClick={(e) => handleSortAlt(e)}/>
         </ListItemIcon>
-        <ListItemText primary="Price" />
+        <ListItemText primary="Price" id="search-target"/>
       </ListItem>
       <ListItem button onClick={(e) => handleSort(e)}>
         <ListItemIcon>
           <BarChartIcon onClick={(e) => handleSortAlt(e)}/>
         </ListItemIcon>
-        <ListItemText primary="Rating" />
+        <ListItemText primary="Rating" id="search-target"/>
       </ListItem>
       <ListItem button onClick={(e) => handleSort(e)}>
         <ListItemIcon>
           <RssFeedIcon onClick={(e) => handleSortAlt(e)}/>
         </ListItemIcon>
-        <ListItemText primary="Available Online" />
+        <ListItemText primary="Available Online" id="search-target"/>
       </ListItem>
       {/* <ListItem button>
         <ListItemIcon>
