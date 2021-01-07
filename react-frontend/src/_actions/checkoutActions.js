@@ -1,49 +1,55 @@
-import { ADD_TO_CART, REMOVE_FROM_CART } from "../types";
-import { CREATE_ORDER, CLEAR_CART, CLEAR_ORDER } from "../types";
+import {SETUP_CHECKOUT, ADD_ADDRESS, ADD_PAYMENT, CLEAR_CHECKOUT, ADD_NEW_ORDER} from '../types'
+import { useHistory } from "react-router-dom";
 
 
-export const addToCart = (product) => (dispatch, getState) => {
-  const cartItems = getState().cart.cartItems.slice();
-  let alreadyExists = false;
-  cartItems.forEach((x) => {
-    if (x._id === product._id) {
-      alreadyExists = true;
-      x.count++;
-    }
-  });
-  if (!alreadyExists) {
-    cartItems.push({ ...product, count: 1 });
-  }
+
+export const setupCheckout = (shoppingCartItems) => (dispatch, getState) => {
+  console.log('Checkout btn has been clicked')
+
+  const shoppingCart = getState().shoppingCart
+  const currentUser = getState().user.currentUser
+  //const history = useHistory();
   dispatch({
-    type: ADD_TO_CART,
-    payload: { cartItems },
+    type: SETUP_CHECKOUT,
+    user: { 
+      id: currentUser.id || 2,
+      firstName:currentUser.firstName || "Eric",
+      lastName:currentUser.lastName || "Uberman"
+    },
+    orderItems: shoppingCartItems,
+    total: shoppingCart.subTotal,
+    count: shoppingCart.count
   });
-  localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  // history.push('dashboard/checkout')
 };
 
-export const removeFromCart = (product) => (dispatch, getState) => {
-  const cartItems = getState()
-    .cart.cartItems.slice()
-    .filter((x) => x._id !== product._id);
-  dispatch({ type: REMOVE_FROM_CART, payload: { cartItems } });
-  localStorage.setItem("cartItems", JSON.stringify(cartItems));
-};
+// export const removeFromCart = (product) => (dispatch, getState) => {
+    
+//     dispatch({ type: REMOVE_FROM_CART, cartItems: updatedCartItems });
+    
+// };
 
 export const createOrder = (order) => (dispatch) => {
-  fetch("/api/orders", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(order),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      dispatch({ type: CREATE_ORDER, payload: data });
-      localStorage.clear("cartItems");
-      dispatch({ type: CLEAR_CART });
-    });
+    fetch("http://localhost:3000/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(order),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({ type: ADD_NEW_ORDER, payload: data });
+        localStorage.clear("cartItems");
+        localStorage.clear("subTotal")
+        localStorage.clear("count")
+        dispatch({ type: CLEAR_CHECKOUT });
+      });
 };
-export const clearOrder = () => (dispatch) => {
-  dispatch({ type: CLEAR_ORDER });
+export const showDashboard = () => (dispatch) => {
+  const history = useHistory();
+  history.push('dashboard')
+};
+export const clearCheckout = () => (dispatch) => {
+    dispatch({ type: CLEAR_CHECKOUT });
 };

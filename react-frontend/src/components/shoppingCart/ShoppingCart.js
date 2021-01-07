@@ -1,13 +1,12 @@
 import React from 'react';
+import { useHistory } from "react-router-dom";
 import { useSelector } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
-// import Rating from '@material-ui/lab/Rating';
 import {Toolbar, AppBar, Paper, Box, Typography, IconButton, Badge, Grid, Card, Button} from '@material-ui/core';
-// import { flexbox } from '@material-ui/system';
 
 import ShoppingCartItem from './ShoppingCartItem'
-// import { mergeClasses } from '@material-ui/styles';
+// import { setupCheckout } from "../../_actions/checkoutActions";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -48,7 +47,13 @@ function ShoppingCart(props) {
 
   let itemCount = shoppingCartItems.length
   const handleShoppingCartClose = props.handleShoppingCartClose
-
+  const handleRerouteToCheckout = props.handleRerouteToCheckout
+  // const setupCheckout = props.setupCheckout
+  // const handleCheckoutBtnClick = (e) => {
+  //   console.log('Checkout btn Clicked')
+  //   props.handleShoppingCartClose()
+  //   props.setupCheckout()
+  // }
   return (
     <React.Fragment>
       <div className={classes.sCart}>
@@ -87,8 +92,7 @@ function ShoppingCart(props) {
             <span>Number of items: {itemCount}</span>
             <span>Total: ${subTotal.toFixed(2)}</span>
           </div>
-          <button id="checkout" 
-            disabled={itemCount === 0 ? true : false} >Checkout</button>
+          <Button id="checkout" onClick={handleRerouteToCheckout}>Checkout</Button>
       </div>
     </React.Fragment>
   )

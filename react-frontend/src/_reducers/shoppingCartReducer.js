@@ -1,25 +1,27 @@
 
-const itemReducer = (sum,item)=> {sum+=item}
+import {ADD_TO_CART, UPDATE_CART_ITEM, UPDATE_CART_SUBTOTAL, REMOVE_CART_ITEM, TOGGLE_MODAL} from '../types'
 
-// var cachedShoppingCart = localStorage;
-const initialState = {
+const itemReducer = (sum,item)=> {sum+=item}
+const resetState = {
   items: [],
   subTotal: 0.00,
   count: 0,
   showModal: false
 }
-
-// const cachedState = {
-//   items: json.parse(localStorage.get('cartItems')),
-//   subTotal: 0,
-//   count: 0,
-//   showModal: false
-// }
+const cachedItems = JSON.parse(localStorage.getItem('cartItems'))
+const cachedSubTotal = JSON.parse(localStorage.getItem('subTotal'))
+const cachedState = {
+  items: cachedItems,
+  subTotal: parseFloat(cachedSubTotal) ,
+  // count: cachedItems.length,
+  showModal: false
+}
+let initialState = cachedItems ? cachedState : resetState
 
 const shoppingCartReducer = (state = initialState, action) => {
   switch (action.type) {
 
-  case 'ADD_TO_CART':
+  case ADD_TO_CART:
       return {
         ...state,
         items: [...state.items, action.product],
@@ -27,7 +29,7 @@ const shoppingCartReducer = (state = initialState, action) => {
         subTotal: parseFloat(action.subTotal),
         count: state.count += 1
       }
-  case 'UPDATE_CART_ITEM':
+  case UPDATE_CART_ITEM:
       return {
         ...state,
         items: state.items.map(item => {
@@ -40,18 +42,19 @@ const shoppingCartReducer = (state = initialState, action) => {
         subTotal: parseFloat(action.subTotal),
         count: state.count += 1
       }
-  case 'UPDATE_CART_SUBTOTAL':
+  case UPDATE_CART_SUBTOTAL:
       return {
           ...state,
           subTotal: action.subTotal
           // subTotal: state.items.map( item => item.subTotal ).reduce( itemReducer, 0)
       }
-  case 'DELETE_CART_ITEM':
+  case REMOVE_CART_ITEM:
         return {
           ...state,
-          items: state.items.filter(item => item.product_id !== action.product_id)
+          items: state.items.filter(item => item.product_id !== action.product.id),
+          subTotal: action.subTotal
         }
-  case 'TOGGLE_MODAL':
+  case TOGGLE_MODAL:
         return {
           ...state,
           showModal: !state.showModal
@@ -62,3 +65,4 @@ const shoppingCartReducer = (state = initialState, action) => {
   }
 };
 export default shoppingCartReducer;
+

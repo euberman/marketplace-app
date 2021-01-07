@@ -7,50 +7,28 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
+import { setupCheckout, addAddress } from "../../_actions/checkoutActions";
+
 export default function AddressForm() {
   const dispatch = useDispatch()
+  useEffect(()=>{
 
-  const currentPizza = useSelector(state => state.checkout.shippingAddress)
-  // console.log(currentPizza)
-  let [pizza, setPizza] = useState(currentPizza)
-
+  })  
+  // const currentUser = useSelector(state=> state.user.currentUser)
+  
+  const currentAddress = useSelector(state => state.checkout.address)
+  let [address, setAddress] = useState(currentAddress)
   useEffect(()=> {
-    setPizza(currentPizza)
-  }, [currentPizza])
+    setAddress(currentAddress)
+  }, [currentAddress])
 
   const handleChange = (e) => {
-    if(e.target.type === 'text'){
-      setPizza({
-        ...pizza, 
-        topping:e.target.value
-      })
-    }else if(e.target.type=== "select-one"){
-      setPizza({
-        ...pizza, 
-        size:e.target.value
-      })
-    }else{
-      setPizza({
-        ...pizza,
-        vegetarian: !pizza.vegetarian
-      })
-    }
+      setAddress({
+        ...address,
+        [e.target.name] : e.target.value
+      });
   }
 
-  const handleSubmit = () => {
-    fetch(`http://localhost:3000/pizzas/${pizza.id}`, {
-      method:"PATCH",
-      headers:{
-        'Content-Type': 'application/json'
-      },
-      body:JSON.stringify(pizza)
-    })
-    .then(res=> res.json())
-    .then(data => {
-      dispatch({type:'UPDATE_PIZZA', pizza:data})
-      dispatch({type:'CLEAR_FORM'})
-    })
-  }
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -64,7 +42,8 @@ export default function AddressForm() {
             name="firstName"
             label="First name"
             fullWidth
-            autoComplete="given-name"
+            defaultValue={address.firstName}
+            onChange={(e)=>handleChange(e)}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -74,7 +53,8 @@ export default function AddressForm() {
             name="lastName"
             label="Last name"
             fullWidth
-            autoComplete="family-name"
+            defaultValue={address.lastName}
+            onChange={(e)=>handleChange(e)}
           />
         </Grid>
         <Grid item xs={12}>
@@ -85,6 +65,7 @@ export default function AddressForm() {
             label="Address line 1"
             fullWidth
             autoComplete="shipping address-line1"
+            onChange={(e)=>handleChange(e)}
           />
         </Grid>
         <Grid item xs={12}>
@@ -94,6 +75,7 @@ export default function AddressForm() {
             label="Address line 2"
             fullWidth
             autoComplete="shipping address-line2"
+            onChange={(e)=>handleChange(e)}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -104,10 +86,17 @@ export default function AddressForm() {
             label="City"
             fullWidth
             autoComplete="shipping address-level2"
+            onChange={(e)=>handleChange(e)}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField id="state" name="state" label="State/Province/Region" fullWidth />
+          <TextField 
+            id="state" 
+            name="state" 
+            label="State" 
+            fullWidth 
+            onChange={(e)=>handleChange(e)}
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -117,9 +106,10 @@ export default function AddressForm() {
             label="Zip / Postal code"
             fullWidth
             autoComplete="shipping postal-code"
+            onChange={(e)=>handleChange(e)}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        {/* <Grid item xs={12} sm={6}>
           <TextField
             required
             id="country"
@@ -127,8 +117,9 @@ export default function AddressForm() {
             label="Country"
             fullWidth
             autoComplete="shipping country"
+            onChange={(e)=>handleChange(e)}
           />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}>
           <FormControlLabel
             control={<Checkbox color="secondary" name="saveAddress" value="yes" />}

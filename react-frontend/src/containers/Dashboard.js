@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  // Link,
+  useHistory,
   useParams,
   useRouteMatch
 } from "react-router-dom";
@@ -24,6 +24,8 @@ import ShoppingCart from '../components/shoppingCart/ShoppingCart'
 import ProductPage from '../components/product/ProductPage'
 import OrdersList from 'components/OrdersList';
 import Checkout from '../components/checkout/Checkout';
+
+import { setupCheckout } from "../_actions/checkoutActions";
 
     const drawerWidth = 240;
 
@@ -119,11 +121,15 @@ function Dashboard() {
   const handleShoppingCartOpen = () => setShoppingCartOpen(true);
   const handleShoppingCartClose = () => setShoppingCartOpen(false);
 
-
   const shoppingCartItems = useSelector(state => state.shoppingCart.items)
   
-
   const products = useSelector(state => state.products.allProducts)
+  const history = useHistory();
+  const handleRerouteToCheckout = () => {
+    setShoppingCartOpen(false)
+    setupCheckout(shoppingCartItems)
+    history.push('dashboard/checkout')
+  }
 
   let { path, url } = useRouteMatch();
 
@@ -172,7 +178,7 @@ function Dashboard() {
             }}>
             <Fade in={shoppingCartOpen}>
               <div className={classes.paper}>
-                <ShoppingCart handleShoppingCartClose={handleShoppingCartClose}/>
+                <ShoppingCart handleRerouteToCheckout={handleRerouteToCheckout} handleShoppingCartClose={handleShoppingCartClose}/>
               </div>
             </Fade>
           </Modal>
