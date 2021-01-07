@@ -135,8 +135,6 @@ function Dashboard() {
   const currentUser = useSelector(state => state.user.currentUser)
 
   const products = useSelector(state => state.products.allProducts)
-  const history = useHistory();
-  const dispatch = useDispatch();
 
   const handleRerouteToCheckout = () => {
     console.log('shoppingCart', shoppingCart)
