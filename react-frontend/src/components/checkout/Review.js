@@ -36,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Review() {
   const classes = useStyles();
-  const 
 
   return (
     <React.Fragment>
