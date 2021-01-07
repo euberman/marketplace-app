@@ -2,7 +2,8 @@
 const initialState = {
     allProducts: [],
     currentProduct: null,
-    sortChar: ''
+    sortChar: '',
+    searchBarInput: ''
 }
 
 const productReducer = (state = initialState, action) => {
@@ -24,6 +25,12 @@ const productReducer = (state = initialState, action) => {
         return {
             ...state,
             sortChar: action.sortChar
+        }
+
+    case 'SEARCH_PRODUCTS':
+        return {
+            ...state,
+            searchBarInput: action.searchBarInput
         }
   
     default:

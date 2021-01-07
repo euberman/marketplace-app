@@ -1,5 +1,5 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -14,14 +14,61 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 // import BusinessIcon from '@material-ui/icons/Business';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import RssFeedIcon from '@material-ui/icons/RssFeed';
-import { makeStyles } from '@material-ui/core/styles';
+import { fade, makeStyles } from '@material-ui/core/styles';
+import SearchIcon from '@material-ui/icons/Search';
+import InputBase from '@material-ui/core/InputBase';
 
 import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
   navList: {
     color: 'black',
     textDecoration: 'none'
+  },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(1),
+      width: 'auto',
+    },
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 1),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#000000',
+    opacity: 0.5
+  },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    marginLeft: theme.spacing(1.75),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '12ch',
+      '&:focus': {
+        width: '20ch',
+      },
+    },
   },
 }));
 
@@ -61,6 +108,8 @@ export function MainListItems() {
 export function SecondaryListItems() {
   const dispatch = useDispatch();
   const classes = useStyles();
+  let searchBar = useSelector(state => state.products.searchBarInput)
+  let [searchBarInput, setSearchBarInput] = useState(searchBar)
 
   const handleSort = (e) => {
     e.preventDefault()
@@ -86,6 +135,17 @@ export function SecondaryListItems() {
     } else if (e.target.parentElement.parentElement.parentElement.querySelector("#search-target").firstElementChild.innerText === 'Available Online'){
       dispatch({type: 'SORT_PRODUCTS', sortChar: 'in_stock'})
     }
+  }
+
+  const handleChange = (e) => {
+    e.preventDefault()
+    setSearchBarInput(e.target.value)
+    // dispatch({type: 'SEARCH_PRODUCTS', searchBarInput: e.target.value})
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    dispatch({type: 'SEARCH_PRODUCTS', searchBarInput: e.target.firstElementChild.lastElementChild.value})
   }
 
   return (
@@ -115,6 +175,23 @@ export function SecondaryListItems() {
         </ListItemIcon>
         <ListItemText primary="Available Online" id="search-target"/>
       </ListItem>
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <form onSubmit={(e)=>handleSubmit(e)} noValidate>
+            <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ 'aria-label': 'search' }}
+              value={searchBarInput}
+              onChange={(e) => handleChange(e)}
+            />
+            </form>
+          </div>
       {/* <ListItem button>
         <ListItemIcon>
           <AssignmentIcon />
