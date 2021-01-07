@@ -23,6 +23,7 @@ import ProductList from '../components/product/ProductList'
 import ShoppingCart from '../components/shoppingCart/ShoppingCart'
 import ProductPage from '../components/product/ProductPage'
 import OrdersList from 'components/OrdersList';
+import Checkout from '../components/checkout/Checkout';
 
     const drawerWidth = 240;
 
@@ -182,9 +183,13 @@ function Dashboard() {
             <Route exact path={`${path}/orders`}>
               <OrdersList />
             </Route>
+            <Route exact path={`${path}/checkout`}>
+              <Checkout />
+            </Route>
             <Route path={`${path}/:productId`}>
               <ProductPage />
             </Route>
+            
           </Switch>
         </Container>
       </main>

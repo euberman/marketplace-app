@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux'
+
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -6,6 +8,49 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
 export default function AddressForm() {
+  const dispatch = useDispatch()
+
+  const currentPizza = useSelector(state => state.checkout.shippingAddress)
+  // console.log(currentPizza)
+  let [pizza, setPizza] = useState(currentPizza)
+
+  useEffect(()=> {
+    setPizza(currentPizza)
+  }, [currentPizza])
+
+  const handleChange = (e) => {
+    if(e.target.type === 'text'){
+      setPizza({
+        ...pizza, 
+        topping:e.target.value
+      })
+    }else if(e.target.type=== "select-one"){
+      setPizza({
+        ...pizza, 
+        size:e.target.value
+      })
+    }else{
+      setPizza({
+        ...pizza,
+        vegetarian: !pizza.vegetarian
+      })
+    }
+  }
+
+  const handleSubmit = () => {
+    fetch(`http://localhost:3000/pizzas/${pizza.id}`, {
+      method:"PATCH",
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify(pizza)
+    })
+    .then(res=> res.json())
+    .then(data => {
+      dispatch({type:'UPDATE_PIZZA', pizza:data})
+      dispatch({type:'CLEAR_FORM'})
+    })
+  }
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
