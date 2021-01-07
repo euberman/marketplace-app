@@ -1,7 +1,9 @@
 //I manage the products.
 const initialState = {
     allProducts: [],
-    currentProduct: null
+    currentProduct: null,
+    sortChar: '',
+    searchBarInput: ''
 }
 
 const productReducer = (state = initialState, action) => {
@@ -19,11 +21,17 @@ const productReducer = (state = initialState, action) => {
             currentProduct: action.product
         }
 
-    // case 'ADD_TO_CART':
-    //     return {
-    //         ...state,
-    //         currentProduct: action.product
-    //     }
+    case 'SORT_PRODUCTS':
+        return {
+            ...state,
+            sortChar: action.sortChar
+        }
+
+    case 'SEARCH_PRODUCTS':
+        return {
+            ...state,
+            searchBarInput: action.searchBarInput
+        }
   
     default:
         return state;

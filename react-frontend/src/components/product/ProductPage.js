@@ -99,6 +99,7 @@ function ProductPage() {
     // console.log(parseFloat(product.customer_rating))
 
     let [numReviews, setNumReviews] = useState(product.num_reviews)
+    let [prodRating, setProdRating] = useState(parseFloat(product.customer_rating))
 
     const addToCart = () => {
       dispatch({type: 'ADD_TO_CART', product: product})
@@ -126,8 +127,7 @@ function ProductPage() {
                             {product.title}
                         </Typography>
                         <Box className={classes.cardActions}>
-                            {/* make not readOnly */}
-                            <Rating name="half-rating-read" value={parseFloat(product.customer_rating)} precision={0.5} readOnly />
+                            <Rating name="half-rating-read" value={prodRating} precision={0.5} readOnly />
                             {numReviews}
                         </Box>
                         <hr />
@@ -164,6 +164,22 @@ function ProductPage() {
 
                             let tempNumRev = product.num_reviews + 1
                             setNumReviews(tempNumRev)
+
+                            let tempVar
+                            if (product.num_reviews === NaN){
+                              tempVar = 0
+                            }
+                            if (prodRating === NaN) {
+                              prodRating = 1
+                              setProdRating(1)
+                            }
+                            
+                            let tempCustRating = ((prodRating * tempVar) + newRating) / tempNumRev
+
+                            if (tempCustRating === NaN){
+                              tempCustRating = 1
+                            }
+                            setProdRating(tempCustRating)
                             
                             fetch(`http://localhost:3000/products/${product.id}`, {
                               method: 'PATCH',
@@ -171,7 +187,8 @@ function ProductPage() {
                                 "Content-Type": "application/json"
                               },
                               body: JSON.stringify({
-                                num_reviews: tempNumRev
+                                num_reviews: tempNumRev,
+                                customer_rating: tempCustRating
                               })
                             })
                           }}

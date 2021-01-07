@@ -10,7 +10,7 @@ export const login = (user) => {
 export const logout = (user) => {
   return {
       type: 'LOGOUT',
-      user: null
+      user: user
   }
 }
 export const signupNewUser = (user) => {

@@ -3,10 +3,10 @@ const initialState = {
     allUsers: [],
     currentUser: {
         password: '',
-        firstName: '',
-        lastName: '',
+        firstname: '',
+        lastname: '',
         email: ''
-    } 
+    }
 }
 
 const userReducer = (state = initialState, action) => {
@@ -21,7 +21,7 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoggedIn: false,
-                currentUser: null
+                currentUser: action.user
             }
         }
         case 'LOGIN':{

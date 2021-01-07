@@ -44,16 +44,20 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-evenly',
     alignContent: 'center'
   },
-  title: {fontSize: 18, fontWeight: 'bold'},
+  title: {
+    fontSize: 18, 
+    fontWeight: 'bold',
+    textDecoration: 'none'
+  },
   price: {
-    color: 'red',
+    color: '#B12704',
     fontSize: 17,
     fontWeight: 'bold',
   },
   notInStock: {textAlign: 'center'},
   brandLink: {
     color: '#212121',
-    textDecoration: null
+    textDecoration: 'none'
   }
 }));
 

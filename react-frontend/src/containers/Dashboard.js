@@ -8,7 +8,7 @@ import {
   useParams,
   useRouteMatch
 } from "react-router-dom";
-
+import { getLocalCurrentUser, setLocalCurrentUser } from '../localServices';
 
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,7 +17,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import {AppBar, CssBaseline, Drawer, Container, Toolbar, List, Typography, Divider, IconButton, Badge, Modal, Backdrop, Fade, } from '@material-ui/core';
 
-import { mainListItems, secondaryListItems } from '../components/DrawerNavList';
+import { MainListItems, SecondaryListItems } from '../components/DrawerNavList';
 import ProductList from '../components/product/ProductList'
 // import ShoppingCartBadge from '../components/shoppingCart/ShoppingCartBadge'
 import ShoppingCart from '../components/shoppingCart/ShoppingCart'
@@ -109,9 +109,19 @@ import { setupCheckout } from "../_actions/checkoutActions";
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
       },
+      navList: {
+        color: 'black',
+        textDecoration: 'none'
+      },
+      logoutButton: {
+        fontSize: 18
+      }
     }));
 
 function Dashboard() {
+  let history = useHistory();
+  const dispatch = useDispatch();
+
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => setOpen(true);
@@ -138,6 +148,29 @@ function Dashboard() {
 
   let { path, url } = useRouteMatch();
 
+  let user = getLocalCurrentUser()
+
+  useEffect(() => {
+    console.log(user)
+    if (!user){
+      history.push('/login')
+    } else {
+      dispatch({type: 'UPDATE_CURRENT_USER', user: user})
+    }
+  }, [])
+
+  const logout = (event) => {
+    console.log(event.target)
+    setLocalCurrentUser(null)
+    dispatch({type: 'LOGOUT', user: {}})
+    history.push('/login')
+  }
+
+  const login = (event) => {
+    console.log(event.target)
+    history.push('/login')
+  }
+
   return (
     <div className={clsx(classes.root)}  >
       <CssBaseline />
@@ -148,7 +181,15 @@ function Dashboard() {
               <MenuIcon />
             </IconButton>
 
-            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title} onClick={() => console.log(products)}> Wally-World MarketPlace </Typography>
+            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}> Wally-World MarketPlace </Typography>
+            {(getLocalCurrentUser()) ? <IconButton edge="start" color="inherit" aria-label="open drawer" className={classes.logoutButton} onClick={(e) => logout(e)} >
+              Log Out
+            </IconButton> : <IconButton edge="start" color="inherit" aria-label="open drawer" className={classes.logoutButton} onClick={(e) => login(e)} >
+              Log In
+            </IconButton>}
+            {/* <IconButton edge="start" color="inherit" aria-label="open drawer" className={classes.logoutButton} onClick={(e) => logout(e)} >
+              Log Out
+            </IconButton> */}
             <IconButton color="inherit" onClick={handleShoppingCartOpen}>
                 <Badge badgeContent={shoppingCart.count} color="secondary">
                     <ShoppingCartIcon />
@@ -164,9 +205,14 @@ function Dashboard() {
               </IconButton>
           </div>
           <Divider />
-          <List>{mainListItems}</List>
+          <List>
+            <MainListItems />
+          </List>
           <Divider />
-          <List>{secondaryListItems}</List>
+          <List>
+            <SecondaryListItems />
+          </List>
+          <Divider />
       </Drawer>
 
       <main className={classes.content}>
