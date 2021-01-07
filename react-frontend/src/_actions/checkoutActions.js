@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 
 export const setupCheckout = (currentUser, shoppingCart, dispatch) => {
   console.log('Custom message')
+  debugger
   // const shoppingCart = getState().shoppingCart
   // const currentUser = getState().user.currentUser
   //const history = useHistory();
@@ -20,6 +21,7 @@ export const setupCheckout = (currentUser, shoppingCart, dispatch) => {
     }
   });
   // history.push('dashboard/checkout')
+  debugger
 };
 
 // export const setupCheckout = (shoppingCartItems, currentUser) => (dispatch, getState) => {
