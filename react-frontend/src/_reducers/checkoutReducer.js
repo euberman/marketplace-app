@@ -50,6 +50,7 @@ const checkoutReducer = (state = initialState, action) => {
                 } 
             }
     }
+        
         case 'ADD_PAYMENT':{
             return {
                 ...state,

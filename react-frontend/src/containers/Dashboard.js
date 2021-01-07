@@ -132,7 +132,7 @@ function Dashboard() {
     console.log('shoppingCart', shoppingCart)
     console.log('currentUser', currentUser)
     setShoppingCartOpen(false)
-    setupCheckout(shoppingCart, currentUser, dispatch)
+    setupCheckout(currentUser, shoppingCart, dispatch)
     history.push('dashboard/checkout')
   }
 
