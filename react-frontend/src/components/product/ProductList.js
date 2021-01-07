@@ -21,7 +21,18 @@ const useStyles = makeStyles((theme) => ({
 
 function ProductList() {
   const classes = useStyles();
-  const products = useSelector(state => state.products.allProducts)
+  let products = useSelector(state => state.products.allProducts)
+  const prodSortChar = useSelector(state => state.products.sortChar)
+
+  if (prodSortChar === 'price'){
+    products.sort((a, b) => (a.price > b.price) ? 1 : -1)
+  } else if (prodSortChar === 'customer_rating'){
+    products.sort((a, b) => (a.customer_rating > b.customer_rating) ? 1 : -1)
+  } else if (prodSortChar === 'in_stock'){
+    products = products.filter(prod => prod.in_stock)
+  } else if (prodSortChar === ''){
+    products.sort((a, b) => (a.id > b.id) ? 1 : -1)
+  }
 
   return (
     <React.Fragment>

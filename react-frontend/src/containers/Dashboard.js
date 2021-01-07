@@ -17,12 +17,13 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import {AppBar, CssBaseline, Drawer, Container, Toolbar, List, Typography, Divider, IconButton, Badge, Modal, Backdrop, Fade, } from '@material-ui/core';
 
-import { mainListItems, secondaryListItems } from '../components/DrawerNavList';
+import { MainListItems, SecondaryListItems } from '../components/DrawerNavList';
 import ProductList from '../components/product/ProductList'
 // import ShoppingCartBadge from '../components/shoppingCart/ShoppingCartBadge'
 import ShoppingCart from '../components/shoppingCart/ShoppingCart'
 import ProductPage from '../components/product/ProductPage'
 import OrdersList from 'components/OrdersList';
+import ProfilePage from 'components/ProfilePage';
 
     const drawerWidth = 240;
 
@@ -106,6 +107,10 @@ import OrdersList from 'components/OrdersList';
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
       },
+      navList: {
+        color: 'black',
+        textDecoration: 'none'
+      }
     }));
 
 function Dashboard() {
@@ -152,9 +157,14 @@ function Dashboard() {
               </IconButton>
           </div>
           <Divider />
-          <List>{mainListItems}</List>
+          <List>
+            <MainListItems />
+          </List>
           <Divider />
-          <List>{secondaryListItems}</List>
+          <List>
+            <SecondaryListItems />
+          </List>
+          <Divider />
       </Drawer>
 
       <main className={classes.content}>
@@ -181,6 +191,9 @@ function Dashboard() {
             </Route>
             <Route exact path={`${path}/orders`}>
               <OrdersList />
+            </Route>
+            <Route exact path={`${path}/profile`}>
+              <ProfilePage />
             </Route>
             <Route path={`${path}/:productId`}>
               <ProductPage />

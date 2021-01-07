@@ -3,10 +3,10 @@ const initialState = {
     allUsers: [],
     currentUser: {
         password: '',
-        firstName: '',
-        lastName: '',
+        firstname: '',
+        lastname: '',
         email: ''
-    } 
+    }
 }
 
 const userReducer = (state = initialState, action) => {
