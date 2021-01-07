@@ -22,6 +22,7 @@ export const setupCheckout = (currentUser, shoppingCart, dispatch) => {
     
   });
   // history.push('dashboard/checkout')
+  debugger
 };
 
 // export const setupCheckout = (shoppingCartItems, currentUser) => (dispatch, getState) => {

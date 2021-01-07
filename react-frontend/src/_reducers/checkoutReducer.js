@@ -1,7 +1,12 @@
 const initialState = {
     shipped: false,
     user_id: '',
-    payment: '',
+    payment: {
+        cardName: '',
+        cardNumber: '',
+        cvv: '',
+        expDate: ''
+    },
     orderItems: null,
     total: 0,
     count: 0,
@@ -51,7 +56,7 @@ const checkoutReducer = (state = initialState, action) => {
                     country: 'US'
                 } 
             }
-    }
+        }
 
         case 'ADD_PAYMENT':{
             return {

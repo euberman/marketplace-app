@@ -13,6 +13,25 @@ export default function AddressForm() {
   const dispatch = useDispatch()
 
   const currentUser = useSelector(state=> state.user.currentUser)
+  
+  // const currentCheckout = useSelector(state => state.checkout)
+  // let [checkout, setCheckout] = useState(currentCheckout)
+  // useEffect(()=> {
+  //   setCheckout(currentCheckout)
+  // }, [currentCheckout])
+
+  // const handleChange = (e) => {
+  //     console.log('handle change')
+  //     setCheckout({
+  //       ...checkout,
+  //       address: {
+  //         ...checkout.address,
+  //         [e.target.name] : e.target.value
+  //       }
+  //     });
+  //     dispatch({type:e.target.})
+  // }
+
   const currentAddress = useSelector(state => state.checkout.address)
   let [address, setAddress] = useState(currentAddress)
   useEffect(()=> {
