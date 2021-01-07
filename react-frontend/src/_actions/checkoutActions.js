@@ -3,30 +3,43 @@ import { useHistory } from "react-router-dom";
 
 
 
-export const setupCheckout = (shoppingCartItems) => (dispatch, getState) => {
+export const setupCheckout = (currentUser, shoppingCart, dispatch) => {
   console.log('Checkout btn has been clicked')
 
-  const shoppingCart = getState().shoppingCart
-  const currentUser = getState().user.currentUser
+  // const shoppingCart = getState().shoppingCart
+  // const currentUser = getState().user.currentUser
   //const history = useHistory();
   dispatch({
     type: SETUP_CHECKOUT,
-    user: { 
-      id: currentUser.id || 2,
-      firstName:currentUser.firstName || "Eric",
-      lastName:currentUser.lastName || "Uberman"
-    },
-    orderItems: shoppingCartItems,
-    total: shoppingCart.subTotal,
-    count: shoppingCart.count
+    cartData: {
+      user_id: currentUser.id,
+      firstname:currentUser.firstname,
+      lastname:currentUser.lastname,
+      orderItems: shoppingCart.items,
+      total: shoppingCart.subTotal,
+      count: shoppingCart.count
+    }
+    
   });
   // history.push('dashboard/checkout')
 };
 
-// export const removeFromCart = (product) => (dispatch, getState) => {
-    
-//     dispatch({ type: REMOVE_FROM_CART, cartItems: updatedCartItems });
-    
+// export const setupCheckout = (shoppingCartItems, currentUser) => (dispatch, getState) => {
+//   console.log('Checkout btn has been clicked')
+
+//   const shoppingCart = getState().shoppingCart
+//   // const currentUser = getState().user.currentUser
+//   //const history = useHistory();
+//   dispatch({
+//     type: SETUP_CHECKOUT,
+//     user_id: currentUser.id,
+//     firstname:currentUser.firstname,
+//     lastname:currentUser.lastname,
+//     orderItems: shoppingCartItems,
+//     total: shoppingCart.subTotal,
+//     count: shoppingCart.count
+//   });
+//   // history.push('dashboard/checkout')
 // };
 
 export const createOrder = (order) => (dispatch) => {

@@ -4,9 +4,10 @@ const initialState = {
     payment: '',
     orderItems: null,
     total: 0,
+    count: 0,
     address: {
-        firstName: '',
-        lastName: '',
+        firstname: '',
+        lastname: '',
         address1: '',
         address2: '',
         city: '',
@@ -21,12 +22,14 @@ const checkoutReducer = (state = initialState, action) => {
         case 'SETUP_CHECKOUT':{
             return {
                 ...state,
-                user_id:action.user.id,
-                orderItems: action.orderItems,
-                total: action.total,
+                user_id:action.cartData.user_id,
+                orderItems: action.cartData.orderItems,
+                total: action.cartData.total,
+                count: action.cartData.count,
                 address: {
-                    firstName: action.user.firstName,
-                    lastName: action.user.lastName,
+                    ...state.address,
+                    firstname: action.cartData.firstname,
+                    lastname: action.cartData.lastname,
                     country: 'US'
                 } 
             }

@@ -121,13 +121,18 @@ function Dashboard() {
   const handleShoppingCartOpen = () => setShoppingCartOpen(true);
   const handleShoppingCartClose = () => setShoppingCartOpen(false);
 
-  const shoppingCartItems = useSelector(state => state.shoppingCart.items)
-  
+  const shoppingCart = useSelector(state => state.shoppingCart)
+  const currentUser = useSelector(state => state.user.currentUser)
+
   const products = useSelector(state => state.products.allProducts)
   const history = useHistory();
+  const dispatch = useDispatch();
+
   const handleRerouteToCheckout = () => {
+    console.log('shoppingCart', shoppingCart)
+    console.log('currentUser', currentUser)
     setShoppingCartOpen(false)
-    setupCheckout(shoppingCartItems)
+    setupCheckout(shoppingCart, currentUser, dispatch)
     history.push('dashboard/checkout')
   }
 
@@ -145,7 +150,7 @@ function Dashboard() {
 
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title} onClick={() => console.log(products)}> Wally-World MarketPlace </Typography>
             <IconButton color="inherit" onClick={handleShoppingCartOpen}>
-                <Badge badgeContent={shoppingCartItems.length} color="secondary">
+                <Badge badgeContent={shoppingCart.count} color="secondary">
                     <ShoppingCartIcon />
                 </Badge>
             </IconButton>

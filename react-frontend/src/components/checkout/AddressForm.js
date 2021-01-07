@@ -42,7 +42,7 @@ export default function AddressForm() {
             name="firstName"
             label="First name"
             fullWidth
-            defaultValue={address.firstName}
+            defaultValue={address.firstname}
             onChange={(e)=>handleChange(e)}
           />
         </Grid>
@@ -53,7 +53,7 @@ export default function AddressForm() {
             name="lastName"
             label="Last name"
             fullWidth
-            defaultValue={address.lastName}
+            defaultValue={address.lastname}
             onChange={(e)=>handleChange(e)}
           />
         </Grid>
