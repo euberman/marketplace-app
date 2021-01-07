@@ -5,7 +5,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  // Link,
   useParams,
   useRouteMatch
 } from "react-router-dom";
@@ -24,7 +23,9 @@ import ProductList from '../components/product/ProductList'
 import ShoppingCart from '../components/shoppingCart/ShoppingCart'
 import ProductPage from '../components/product/ProductPage'
 import OrdersList from 'components/OrdersList';
-import ProfilePage from 'components/ProfilePage';
+import Checkout from '../components/checkout/Checkout';
+
+import { setupCheckout } from "../_actions/checkoutActions";
 
     const drawerWidth = 240;
 
@@ -130,9 +131,18 @@ function Dashboard() {
   const handleShoppingCartOpen = () => setShoppingCartOpen(true);
   const handleShoppingCartClose = () => setShoppingCartOpen(false);
 
-  const shoppingCartItems = useSelector(state => state.shoppingCart.items)
+  const shoppingCart = useSelector(state => state.shoppingCart)
+  const currentUser = useSelector(state => state.user.currentUser)
 
   const products = useSelector(state => state.products.allProducts)
+
+  const handleRerouteToCheckout = () => {
+    console.log('shoppingCart', shoppingCart)
+    console.log('currentUser', currentUser)
+    setShoppingCartOpen(false)
+    setupCheckout(currentUser, shoppingCart, dispatch)
+    history.push('dashboard/checkout')
+  }
 
   let { path, url } = useRouteMatch();
 
@@ -179,7 +189,7 @@ function Dashboard() {
               Log Out
             </IconButton> */}
             <IconButton color="inherit" onClick={handleShoppingCartOpen}>
-                <Badge badgeContent={shoppingCartItems.length} color="secondary">
+                <Badge badgeContent={shoppingCart.count} color="secondary">
                     <ShoppingCartIcon />
                 </Badge>
             </IconButton>
@@ -217,7 +227,7 @@ function Dashboard() {
             }}>
             <Fade in={shoppingCartOpen}>
               <div className={classes.paper}>
-                <ShoppingCart handleShoppingCartClose={handleShoppingCartClose}/>
+                <ShoppingCart handleRerouteToCheckout={handleRerouteToCheckout} handleShoppingCartClose={handleShoppingCartClose}/>
               </div>
             </Fade>
           </Modal>
@@ -228,12 +238,13 @@ function Dashboard() {
             <Route exact path={`${path}/orders`}>
               <OrdersList />
             </Route>
-            <Route exact path={`${path}/profile`}>
-              <ProfilePage />
+            <Route exact path={`${path}/checkout`}>
+              <Checkout />
             </Route>
             <Route path={`${path}/:productId`}>
               <ProductPage />
             </Route>
+            
           </Switch>
         </Container>
       </main>
