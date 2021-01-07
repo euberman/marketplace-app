@@ -76,13 +76,17 @@ function LoginForm() {
   }
 
   useEffect(() => {
+    if (getLocalCurrentUser()) {
+      // history.push('/dashboard')
+    }
+  }, [])
+
+  useEffect(() => {
     setUser(currentUser)
   }, [currentUser])
   
   return (
     <Container component="main" maxWidth="xs">
-      {user.email}
-      {currentUser.email}
 
       <CssBaseline />
       <div className={classes.paper}>

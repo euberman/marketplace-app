@@ -65,16 +65,12 @@ export function SecondaryListItems() {
   const handleSort = (e) => {
     e.preventDefault()
     if (e.target.innerText === 'All Products'){
-      console.log('All Products')
       dispatch({type: 'SORT_PRODUCTS', sortChar: ''})
     } else if (e.target.innerText === 'Price'){
-      console.log('Price')
       dispatch({type: 'SORT_PRODUCTS', sortChar: 'price'})
     } else if (e.target.innerText === 'Rating'){
-      console.log('Rating')
       dispatch({type: 'SORT_PRODUCTS', sortChar: 'customer_rating'})
     } else if (e.target.innerText === 'Available Online'){
-      console.log('Available Online')
       dispatch({type: 'SORT_PRODUCTS', sortChar: 'in_stock'})
     }
   }
@@ -82,16 +78,12 @@ export function SecondaryListItems() {
   const handleSortAlt = (e) => {
     e.preventDefault()
     if (e.target.parentElement.parentElement.parentElement.querySelector("#search-target").firstElementChild.innerText === 'All Products'){
-      console.log('Alt All Products')
       dispatch({type: 'SORT_PRODUCTS', sortChar: ''})
     } else if (e.target.parentElement.parentElement.parentElement.querySelector("#search-target").firstElementChild.innerText === 'Price'){
-      console.log('Alt Price')
       dispatch({type: 'SORT_PRODUCTS', sortChar: 'price'})
     } else if (e.target.parentElement.parentElement.parentElement.querySelector("#search-target").firstElementChild.innerText === 'Rating'){
-      console.log('Alt Rating')
       dispatch({type: 'SORT_PRODUCTS', sortChar: 'customer_rating'})
     } else if (e.target.parentElement.parentElement.parentElement.querySelector("#search-target").firstElementChild.innerText === 'Available Online'){
-      console.log('Alt Available Online')
       dispatch({type: 'SORT_PRODUCTS', sortChar: 'in_stock'})
     }
   }

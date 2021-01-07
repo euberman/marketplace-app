@@ -99,7 +99,6 @@ function ProductPage() {
     // console.log(parseFloat(product.customer_rating))
 
     let [numReviews, setNumReviews] = useState(product.num_reviews)
-    debugger
     let [prodRating, setProdRating] = useState(parseFloat(product.customer_rating))
 
     const addToCart = () => {
