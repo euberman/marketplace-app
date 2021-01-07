@@ -21,7 +21,7 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoggedIn: false,
-                currentUser: null
+                currentUser: action.user
             }
         }
         case 'LOGIN':{

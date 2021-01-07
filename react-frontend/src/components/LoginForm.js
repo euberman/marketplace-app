@@ -39,6 +39,9 @@ import { getLocalCurrentUser, setLocalCurrentUser } from '../localServices';
       submit: {
         margin: theme.spacing(3, 0, 2),
       },
+      noUser: {
+        color: 'red'
+      }
     }));
 
 
@@ -51,20 +54,26 @@ function LoginForm() {
   const allUsers = useSelector(state => state.user.allUsers)
   
   const [user, setUser] = useState(currentUser);
+  const [noUser, setNoUser] = useState(false)
 
   const dispatch = useDispatch();
+  // let noUser = false
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    let userExists = getLocalCurrentUser()
+
     let loginUser = allUsers.find(user => {
       if (user.email === e.target.querySelector('#email').value && user.password === e.target.querySelector('#password').value){
+        setNoUser(false)
         setLocalCurrentUser(user)
+
         return user
+      } else {
+        setNoUser(true)
       }
     })
-    
+    let userExists = getLocalCurrentUser()
     // dispatch({type:'CLEAR_FORM'})
 
     if (userExists){
@@ -92,6 +101,7 @@ function LoginForm() {
       <div className={classes.paper}>
         <Avatar className={classes.avatar}> <LockOutlinedIcon /> </Avatar>
        <Typography component="h1" variant="h5"> Sign in </Typography>
+       {(noUser) ? <Typography className={classes.noUser}>That username and/or password is incorrect</Typography> : <div></div>}
         <form className={classes.form} onSubmit={(e)=>handleSubmit(e)} noValidate>
           <TextField
             variant="outlined"

@@ -150,6 +150,7 @@ function Dashboard() {
   const logout = (event) => {
     console.log(event.target)
     setLocalCurrentUser(null)
+    dispatch({type: 'LOGOUT', user: {}})
     history.push('/login')
   }
 
