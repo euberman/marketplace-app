@@ -38,12 +38,12 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
+      // marginLeft: theme.spacing(1),
       width: 'auto',
     },
   },
   searchIcon: {
-    padding: theme.spacing(0, 1),
+    // padding: theme.spacing(0, 1),
     height: '100%',
     position: 'absolute',
     pointerEvents: 'none',
@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
-    marginLeft: theme.spacing(1.75),
+    marginLeft: theme.spacing(1),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
@@ -145,7 +145,7 @@ export function SecondaryListItems() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch({type: 'SEARCH_PRODUCTS', searchBarInput: e.target.firstElementChild.lastElementChild.value})
+    dispatch({type: 'SEARCH_PRODUCTS', searchBarInput: e.target.firstElementChild.lastElementChild.value.toLowerCase()})
   }
 
   return (
@@ -175,7 +175,8 @@ export function SecondaryListItems() {
         </ListItemIcon>
         <ListItemText primary="Available Online" id="search-target"/>
       </ListItem>
-          <div className={classes.search}>
+      <ListItem>
+        <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -192,6 +193,8 @@ export function SecondaryListItems() {
             />
             </form>
           </div>
+      </ListItem>
+
       {/* <ListItem button>
         <ListItemIcon>
           <AssignmentIcon />

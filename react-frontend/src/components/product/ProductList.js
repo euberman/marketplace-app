@@ -38,7 +38,7 @@ function ProductList() {
     products.sort((a, b) => (a.id > b.id) ? 1 : -1)
   }
   if (searchBar !== ''){
-    products = products.filter(prod => prod.title.includes(searchBar))
+    products = products.filter(prod => prod.title.toLowerCase().includes(searchBar))
   }
 
   return (
