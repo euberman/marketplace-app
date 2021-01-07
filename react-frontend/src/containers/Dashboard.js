@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import {useSelector, useDispatch } from 'react-redux';
+import { useHistory } from "react-router-dom";
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,7 +9,7 @@ import {
   useParams,
   useRouteMatch
 } from "react-router-dom";
-
+import { getLocalCurrentUser, setLocalCurrentUser } from '../localServices';
 
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -110,10 +111,16 @@ import ProfilePage from 'components/ProfilePage';
       navList: {
         color: 'black',
         textDecoration: 'none'
+      },
+      logoutButton: {
+        fontSize: 18
       }
     }));
 
 function Dashboard() {
+  let history = useHistory();
+  const dispatch = useDispatch();
+
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => setOpen(true);
@@ -123,13 +130,33 @@ function Dashboard() {
   const handleShoppingCartOpen = () => setShoppingCartOpen(true);
   const handleShoppingCartClose = () => setShoppingCartOpen(false);
 
-
   const shoppingCartItems = useSelector(state => state.shoppingCart.items)
-  
 
   const products = useSelector(state => state.products.allProducts)
 
   let { path, url } = useRouteMatch();
+
+  let user = getLocalCurrentUser()
+
+  useEffect(() => {
+    console.log(user)
+    if (!user){
+      history.push('/login')
+    } else {
+      dispatch({type: 'UPDATE_CURRENT_USER', user: user})
+    }
+  }, [])
+
+  const logout = (event) => {
+    console.log(event.target)
+    setLocalCurrentUser(null)
+    history.push('/login')
+  }
+
+  const login = (event) => {
+    console.log(event.target)
+    history.push('/login')
+  }
 
   return (
     <div className={clsx(classes.root)}  >
@@ -141,7 +168,15 @@ function Dashboard() {
               <MenuIcon />
             </IconButton>
 
-            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title} onClick={() => console.log(products)}> Wally-World MarketPlace </Typography>
+            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}> Wally-World MarketPlace </Typography>
+            {(getLocalCurrentUser()) ? <IconButton edge="start" color="inherit" aria-label="open drawer" className={classes.logoutButton} onClick={(e) => logout(e)} >
+              Log Out
+            </IconButton> : <IconButton edge="start" color="inherit" aria-label="open drawer" className={classes.logoutButton} onClick={(e) => login(e)} >
+              Log In
+            </IconButton>}
+            {/* <IconButton edge="start" color="inherit" aria-label="open drawer" className={classes.logoutButton} onClick={(e) => logout(e)} >
+              Log Out
+            </IconButton> */}
             <IconButton color="inherit" onClick={handleShoppingCartOpen}>
                 <Badge badgeContent={shoppingCartItems.length} color="secondary">
                     <ShoppingCartIcon />
