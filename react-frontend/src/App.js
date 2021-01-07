@@ -8,6 +8,7 @@ import { getUsers } from './_actions/userActions'
 import Dashboard from './containers/Dashboard';
 import SignupForm from './components/SignupForm';
 import LoginForm from './components/LoginForm';
+import Checkout from './components/checkout/Checkout';
 
 
 function App() {
@@ -47,6 +48,10 @@ function App() {
           
           <Route path="/signup" component={() => {
             return <SignupForm />
+          }}/>
+
+          <Route path="/checkout" component={() => {
+            return <Checkout />
           }}/>
 
           <Route component={() => {

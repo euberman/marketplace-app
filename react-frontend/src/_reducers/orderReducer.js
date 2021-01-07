@@ -12,11 +12,11 @@ const orderReducer = (state = initialState, action) => {
             allOrders: action.orders
         }
 
-    // case 'CHANGE_CURRENT_ORDER':
-    //     return {
-    //         ...state,
-    //         currentOrder: action.order
-    //     }
+    case 'ADD_NEW_ORDER':
+        return {
+            ...state,
+            allOrders: [...state.allOrders, action.order]
+        }
 
     // case 'ADD_TO_CURRENT_ORDER':
     //     return {
