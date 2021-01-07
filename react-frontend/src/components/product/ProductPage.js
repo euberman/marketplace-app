@@ -127,7 +127,6 @@ function ProductPage() {
                             {product.title}
                         </Typography>
                         <Box className={classes.cardActions}>
-                            {/* make not readOnly */}
                             <Rating name="half-rating-read" value={prodRating} precision={0.5} readOnly />
                             {numReviews}
                         </Box>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {useSelector, useDispatch } from 'react-redux';
 
 import Link from '@material-ui/core/Link';
@@ -10,6 +10,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
 import Title from '../components/Title';
+import { getLocalCurrentUser } from 'localServices';
 
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
@@ -36,8 +37,10 @@ const useStyles = makeStyles((theme) => ({
 
 function OrdersList() {
   const classes = useStyles();
-  const currentUser = useSelector(state => state.user.currentUser)
+  // const currentUser = useSelector(state => state.user.currentUser)
+  const currentUser = getLocalCurrentUser()
   const data = useSelector(state => state.order.allOrders)
+  let [moreOrders, setMoreOrders] = useState(false)
 
   rows = []
 
@@ -52,7 +55,7 @@ function OrdersList() {
 
     rows.push(createData(order.id, date[0], name, order.address, order.payment, amount))
   })
-
+  
   rows = rows.filter(row => row.name === [currentUser.firstname, currentUser.lastname].join(' '))
 
   let rowsBackup = rows
@@ -61,7 +64,12 @@ function OrdersList() {
 
   const showMoreRows = (event) => {
     event.preventDefault()
-    rows = rowsBackup
+    setMoreOrders(true)
+  }
+
+  const showLessRows = (e) => {
+    e.preventDefault()
+    setMoreOrders(false)
   }
 
   return (
@@ -78,7 +86,7 @@ function OrdersList() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {(!moreOrders) ? rows.map((row) => (
             <TableRow key={row.id}>
               <TableCell>{row.date}</TableCell>
               <TableCell>{row.name}</TableCell>
@@ -86,14 +94,25 @@ function OrdersList() {
               <TableCell>{row.paymentMethod}</TableCell>
               <TableCell align="right">{row.amount}</TableCell>
             </TableRow>
-          ))}
+          )) : rowsBackup.map((row) => (
+            <TableRow key={row.id}>
+              <TableCell>{row.date}</TableCell>
+              <TableCell>{row.name}</TableCell>
+              <TableCell>{row.shipTo}</TableCell>
+              <TableCell>{row.paymentMethod}</TableCell>
+              <TableCell align="right">{row.amount}</TableCell>
+            </TableRow>))}
         </TableBody>
       </Table>
-      <div className={classes.seeMore}>
+      {(!moreOrders) ? <div className={classes.seeMore}>
         <Link color="primary" href="#" onClick={(event) => showMoreRows(event)}>
           See more orders
         </Link>
-      </div>
+      </div> : <div className={classes.seeMore}>
+        <Link color="primary" href="#" onClick={(event) => showLessRows(event)}>
+          See less orders
+        </Link>
+      </div>}
     </React.Fragment>
   );
 }
