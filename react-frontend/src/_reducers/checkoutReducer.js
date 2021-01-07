@@ -35,14 +35,16 @@ const checkoutReducer = (state = initialState, action) => {
             }
         }
         case 'ADD_ADDRESS':{
+            console.log('address', action.address)
+            //console.log('currentAddress', action.currentAddress)
             return {
                 ...state,
                 address: {
                     ...state.address,
-                    firstName: action.address.firstName,
-                    lastName: action.address.lastName,
-                    addressLine1: action.address.addressLine1,
-                    addressLine2: action.address.addressLine2,
+                    firstname: action.address.firstname,
+                    lastname: action.address.lastname,
+                    address1: action.address.address1,
+                    address2: action.address.address2,
                     city: action.address.city,
                     state: action.address.state,
                     zip: action.address.zip,
@@ -50,7 +52,7 @@ const checkoutReducer = (state = initialState, action) => {
                 } 
             }
     }
-        
+
         case 'ADD_PAYMENT':{
             return {
                 ...state,

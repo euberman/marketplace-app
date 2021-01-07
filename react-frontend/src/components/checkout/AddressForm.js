@@ -12,36 +12,40 @@ import { setupCheckout, addAddress } from "../../_actions/checkoutActions";
 export default function AddressForm() {
   const dispatch = useDispatch()
 
-  // const currentUser = useSelector(state=> state.user.currentUser)
-  const currentCheckout = useSelector(state => state.checkout)
-  let [checkout, setCheckout] = useState(currentCheckout)
-  useEffect(()=> {
-    setCheckout(currentCheckout)
-  }, [currentCheckout])
-
-  const handleChange = (e) => {
-      console.log('handle change')
-      setCheckout({
-        ...checkout,
-        address: {
-          ...checkout.address,
-          [e.target.name] : e.target.value
-        }
-      });
-  }
-
-  // const currentAddress = useSelector(state => state.checkout.address)
-  // let [address, setAddress] = useState(currentAddress)
+  const currentUser = useSelector(state=> state.user.currentUser)
+  // const currentCheckout = useSelector(state => state.checkout)
+  // let [checkout, setCheckout] = useState(currentCheckout)
   // useEffect(()=> {
-  //   setAddress(currentAddress)
-  // }, [currentAddress])
+  //   setCheckout(currentCheckout)
+  // }, [currentCheckout])
 
   // const handleChange = (e) => {
-  //     setAddress({
-  //       ...address,
-  //       [e.target.name] : e.target.value
+  //     console.log('handle change')
+  //     setCheckout({
+  //       ...checkout,
+  //       address: {
+  //         ...checkout.address,
+  //         [e.target.name] : e.target.value
+  //       }
   //     });
+  //     dispatch({type:e.target.})
   // }
+
+  const currentAddress = useSelector(state => state.checkout.address)
+  let [address, setAddress] = useState(currentAddress)
+  useEffect(()=> {
+    dispatch({type:'ADD_ADDRESS', address: address})
+  }, [address])
+
+  const handleChange = (e) => {
+    // debugger
+      setAddress({
+        ...address,
+        [e.target.name] : e.target.value
+      });
+      // console.log('address', address)
+      // console.log('currentAddress', currentAddress)
+  }
 
   return (
     <React.Fragment>
@@ -55,8 +59,8 @@ export default function AddressForm() {
             name="firstname"
             label="First name"
             fullWidth
-            defaultValue={checkout.address.firstname}
-            value={checkout.address.firstname}
+            defaultValue={address.firstname}
+            value={address.firstname}
             onChange={(e)=>handleChange(e)}
           />
         </Grid>
@@ -66,8 +70,8 @@ export default function AddressForm() {
             name="lastname"
             label="Last name"
             fullWidth
-            defaultValue={checkout.address.lastname}
-            value={checkout.address.lastname}
+            defaultValue={address.lastname}
+            value={address.lastname}
             onChange={(e)=>handleChange(e)}
           />
         </Grid>
@@ -77,7 +81,7 @@ export default function AddressForm() {
             name="address1"
             label="Address line 1"
             fullWidth
-            value={checkout.address.address1}
+            value={address.address1}
             onChange={(e)=>handleChange(e)}
           />
         </Grid>
@@ -87,7 +91,7 @@ export default function AddressForm() {
             name="address2"
             label="Address line 2"
             fullWidth
-            value={checkout.address.address2}
+            value={address.address2}
             onChange={(e)=>handleChange(e)}
           />
         </Grid>
@@ -97,7 +101,7 @@ export default function AddressForm() {
             name="city"
             label="City"
             fullWidth
-            value={checkout.address.city}
+            value={address.city}
             onChange={(e)=>handleChange(e)}
           />
         </Grid>
@@ -106,7 +110,7 @@ export default function AddressForm() {
             name="state" 
             label="State" 
             fullWidth
-            value={checkout.address.state}
+            value={address.state}
             onChange={(e)=>handleChange(e)}
           />
         </Grid>
@@ -116,7 +120,7 @@ export default function AddressForm() {
             name="zip"
             label="Zip / Postal code"
             fullWidth
-            value={checkout.address.zip}
+            value={address.zip}
             onChange={(e)=>handleChange(e)}
           />
         </Grid>
