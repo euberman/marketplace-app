@@ -1,7 +1,12 @@
 const initialState = {
     shipped: false,
     user_id: '',
-    payment: '',
+    payment: {
+        cardName: '',
+        cardNumber: '',
+        cvv: '',
+        expDate: ''
+    },
     orderItems: null,
     total: 0,
     count: 0,
@@ -35,21 +40,24 @@ const checkoutReducer = (state = initialState, action) => {
             }
         }
         case 'ADD_ADDRESS':{
+            console.log('address', action.address)
+            //console.log('currentAddress', action.currentAddress)
             return {
                 ...state,
                 address: {
                     ...state.address,
                     firstname: action.address.firstname,
                     lastname: action.address.lastname,
-                    addressLine1: action.address.addressLine1,
-                    addressLine2: action.address.addressLine2,
+                    address1: action.address.address1,
+                    address2: action.address.address2,
                     city: action.address.city,
                     state: action.address.state,
                     zip: action.address.zip,
                     country: 'US'
                 } 
             }
-    }
+        }
+
         case 'ADD_PAYMENT':{
             return {
                 ...state,

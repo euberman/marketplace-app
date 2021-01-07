@@ -4,8 +4,8 @@ import { useHistory } from "react-router-dom";
 
 
 export const setupCheckout = (currentUser, shoppingCart, dispatch) => {
-  console.log('Custom message')
-  debugger
+  console.log('Checkout btn has been clicked')
+
   // const shoppingCart = getState().shoppingCart
   // const currentUser = getState().user.currentUser
   //const history = useHistory();
@@ -19,6 +19,7 @@ export const setupCheckout = (currentUser, shoppingCart, dispatch) => {
       total: shoppingCart.subTotal,
       count: shoppingCart.count
     }
+    
   });
   // history.push('dashboard/checkout')
   debugger
