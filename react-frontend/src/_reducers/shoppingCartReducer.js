@@ -85,6 +85,10 @@ const shoppingCartReducer = (state = initialState, action) => {
           ...state,
           showModal: !state.showModal
         }
+  case 'EMPTY_CART':
+        return {
+          resetState
+        }
   default:
       return state;
 
