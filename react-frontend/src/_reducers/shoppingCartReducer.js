@@ -21,7 +21,7 @@ let initialState = cachedItems ? cachedState : resetState
 const shoppingCartReducer = (state = initialState, action) => {
   switch (action.type) {
 
-  case ADD_TO_CART:
+  case 'ADD_TO_CART':
       return {
         ...state,
         items: [...state.items, action.product],
@@ -29,7 +29,7 @@ const shoppingCartReducer = (state = initialState, action) => {
         subTotal: parseFloat(action.subTotal),
         count: state.count += 1
       }
-  case UPDATE_CART_ITEM:
+  case 'UPDATE_CART_ITEM':
       return {
         ...state,
         items: state.items.map(item => {
@@ -42,19 +42,45 @@ const shoppingCartReducer = (state = initialState, action) => {
         subTotal: parseFloat(action.subTotal),
         count: state.count += 1
       }
-  case UPDATE_CART_SUBTOTAL:
+  case 'INCREMENT_QTY':
+      return {
+        ...state,
+        items: state.items.map(item => {
+            if (item.product_id === action.product.product_id) {
+              return action.product
+            } else {
+              return item
+            }
+        }),
+        subTotal: parseFloat(action.subTotal),
+        count: state.count += 1
+      }
+  case 'DECREMENT_QTY':
+      return {
+        ...state,
+        items: state.items.map(item => {
+            if (item.product_id === action.product.product_id) {
+              return action.product
+            } else {
+              return item
+            }
+        }),
+        subTotal: parseFloat(action.subTotal),
+        count: state.count += 1
+      }
+  case 'UPDATE_CART_SUBTOTAL':
       return {
           ...state,
           subTotal: action.subTotal
           // subTotal: state.items.map( item => item.subTotal ).reduce( itemReducer, 0)
       }
-  case REMOVE_CART_ITEM:
+  case 'REMOVE_CART_ITEM':
         return {
           ...state,
           items: state.items.filter(item => item.product_id !== action.product.id),
           subTotal: action.subTotal
         }
-  case TOGGLE_MODAL:
+  case 'TOGGLE_MODAL':
         return {
           ...state,
           showModal: !state.showModal

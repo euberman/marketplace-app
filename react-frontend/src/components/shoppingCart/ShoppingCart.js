@@ -3,20 +3,22 @@ import { useHistory } from "react-router-dom";
 import { useSelector } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
-import {Toolbar, AppBar, Paper, Box, Typography, IconButton, Badge, Grid, Card, Button} from '@material-ui/core';
+import {Toolbar, AppBar, Paper, Box, Typography, IconButton, Badge, Grid, Card, Button, Table} from '@material-ui/core';
 
 import ShoppingCartItem from './ShoppingCartItem'
+import { PlayCircleFilledWhite } from '@material-ui/icons';
 // import { setupCheckout } from "../../_actions/checkoutActions";
 
 
 const useStyles = makeStyles((theme) => ({
   sCart: {
     height: '100%',
-    width:800,
+    minWidth: 800,
+    width:'100%',
     display: 'flex',
     flexFlow: 'column',
-    alignContent: 'stretch',
-    background: 'grey'
+    alignSelf: 'stretch',
+    padding: 0
   },
   topBar: {
     height: 50,
@@ -25,15 +27,48 @@ const useStyles = makeStyles((theme) => ({
     flexFlow: 'row',
     alignItems: 'center',
     alignContent: 'stretch',
-    background: 'blue'
+    background: '#1976d2',
+    color: 'white', 
   },
   topBarTitle: {
     flexGrow: 1,
+    marginLeft: 20,
     width: '80%'
   },
   topBarClose: {
-    width:'10%',
-    background: 'yellow'
+    width:'10%'
+  },
+  tableContainer: {
+    width: '100%',
+    padding:15,
+    display: 'flex',
+  },
+  cartTable: {
+    width:'100%'
+  },
+  totalDetailsContainer: {
+    display: 'flex',
+    width: '100%',
+    padding:15,
+    minHeight: 0,
+    justifyItems: 'end',
+    flexDirection:"column"
+  },
+  checkoutBtnContainer:{
+    // height: 50,
+    display: 'flex',
+    width: '100%',
+    padding:15,
+    lineSpacing: 1.1,
+    justifyContent: 'flex-end'
+  },
+  checkoutBtn:{
+    
+  },
+  totalDetails: {
+    width: '100%',
+    textAlign: 'right',
+    paddingRight: 20
   }
 }));
 
@@ -56,44 +91,53 @@ function ShoppingCart(props) {
   // }
   return (
     <React.Fragment>
-      <div className={classes.sCart}>
-          <Box display="flex" className={classes.topBar} >
-            <Box className={classes.topBarTitle}>
-              <Typography component="h1" variant="h6"> Wally-World MarketPlace </Typography>
-            </Box>
-            <Box className={classes.topBarClose}>
-              <Button edge="end" color="inherit" onClick={handleShoppingCartClose}> Close </Button>
-            </Box>
-
+      <Box flexDirection="column" alignContent="stretch" className={classes.sCart}>
+          <Box container display="flex" color="primary" className={classes.topBar} >
+              <Box item className={classes.topBarTitle}>
+                <Typography component="h1" variant="h6">Shopping Cart </Typography>
+              </Box>
+              <Box item className={classes.topBarClose}>
+                <Button edge="end" color="inherit" onClick={handleShoppingCartClose}> Close </Button>
+              </Box>
           </Box>
-          <table>
-            <thead>
-              <tr>
-                <th></th>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                  shoppingCartItems.map((item,index) => {
-                      return <ShoppingCartItem product={item} indexInCart={index} key={item.id} />
-                  })
-              }
-            </tbody>
-          </table>
-          <span id="empty-cart">{(itemCount === 0) ? "Shopping cart is empty" : ""}</span>
-          <h3 id="cart-total">Cart Total</h3>
-          <div id="totals">
-            <span>Cart Totals</span>
-            <span>Number of items: {itemCount}</span>
-            <span>Total: ${subTotal.toFixed(2)}</span>
-          </div>
-          <Button id="checkout" onClick={handleRerouteToCheckout}>Checkout</Button>
-      </div>
+          <Box className={classes.tableContainer}>
+              <table className={classes.cartTable}>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                      shoppingCartItems.map((item,index) => {
+                          return <ShoppingCartItem product={item} indexInCart={index} key={item.id} />
+                      })
+                  }
+                </tbody>
+              </table>
+          </Box>
+          <Box className={classes.totalDetailsContainer} >
+              <Box className={classes.totalDetails} >
+                <h4>Number of items: {itemCount} </h4>
+              </Box>
+              <Box className={classes.totalDetails}>
+                <h3>Cart Total: ${subTotal.toFixed(2)}</h3>
+              </Box>
+          </Box>
+          <Box className={classes.checkoutBtnContainer}>
+            
+            <Button 
+                  variant="contained" 
+                  color="primary"
+                  className={classes.checkoutBtn} 
+                  onClick={handleRerouteToCheckout}>Checkout</Button>
+          </Box>
+      </Box>
     </React.Fragment>
   )
 }

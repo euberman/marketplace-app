@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState, useSelector, useDispatch } from 'react-redux';
-
+import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
+import AddBoxTwoToneIcon from '@material-ui/icons/AddBoxTwoTone';
+import IndeterminateCheckBoxTwoToneIcon from '@material-ui/icons/IndeterminateCheckBoxTwoTone';
 import {IconButton, Badge, Typography, Grid, Button, Box} from '@material-ui/core';
 
 
@@ -52,7 +54,7 @@ function ShoppingCartItem(props){
         </td>
         {/* <td>${props.product.price * props.product.quantity}</td> */}
         <td>${props.product.subTotal}</td>
-        <td><i className="fas fa-trash" onClick={handleRemoveFromCart}></i></td>
+        <td><DeleteTwoToneIcon /></td>
       </tr>
     </React.Fragment>
   )

@@ -14,6 +14,8 @@ export const CLEAR_CHECKOUT = "CLEAR_CHECKOUT";
 // shoppingCartReducer
 export const ADD_TO_CART = "ADD_TO_CART";
 export const UPDATE_CART_ITEM = "UPDATE_CART_ITEM";
+export const INCREMENT_QTY = 'INCREMENT_QTY'
+export const DECREMENT_QTY = 'DECREMENT_QTY'
 export const UPDATE_CART_SUBTOTAL = "UPDATE_CART_SUBTOTAL";
 export const REMOVE_CART_ITEM = "REMOVE_CART_ITEM";
 export const TOGGLE_MODAL = "TOGGLE_MODAL";

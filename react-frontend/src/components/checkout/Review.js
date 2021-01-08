@@ -36,12 +36,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Review() {
   const classes = useStyles();
+
   const dispatch = useDispatch();
 
   const currentCheckout = useSelector(state => state.checkout)
   const [checkout, setCheckout] = useState(currentCheckout)
 
   const currentUser = useSelector(state=> state.user.currentUser)
+
 
   return (
     <React.Fragment>
