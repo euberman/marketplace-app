@@ -39,7 +39,6 @@ export default function AddressForm() {
   }, [address])
 
   const handleChange = (e) => {
-    // debugger
       setAddress({
         ...address,
         [e.target.name] : e.target.value
