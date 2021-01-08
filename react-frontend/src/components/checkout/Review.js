@@ -36,7 +36,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Review() {
   const classes = useStyles();
-  const 
+  const dispatch = useDispatch();
+
+  const currentCheckout = useSelector(state => state.checkout)
+  const [checkout, setCheckout] = useState(currentCheckout)
+
+  const currentUser = useSelector(state=> state.user.currentUser)
 
   return (
     <React.Fragment>
@@ -44,16 +49,16 @@ export default function Review() {
         Order summary
       </Typography>
       <List disablePadding>
-        {products.map((product) => (
+        {checkout.orderItems.map((product) => (
           <ListItem className={classes.listItem} key={product.name}>
-            <ListItemText primary={product.name} secondary={product.desc} />
+            <ListItemText primary={product.title} />
             <Typography variant="body2">{product.price}</Typography>
           </ListItem>
         ))}
         <ListItem className={classes.listItem}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" className={classes.total}>
-            $34.06
+            ${checkout.total}
           </Typography>
         </ListItem>
       </List>
@@ -62,24 +67,46 @@ export default function Review() {
           <Typography variant="h6" gutterBottom className={classes.title}>
             Shipping
           </Typography>
-          <Typography gutterBottom>John Smith</Typography>
-          <Typography gutterBottom>{addresses.join(', ')}</Typography>
+          <Typography gutterBottom>{checkout.address.firstname + ' ' + checkout.address.lastname}</Typography>
+          <Typography gutterBottom>{checkout.address.address1 + ', ' + checkout.address.city + ', ' + checkout.address.state + ', ' + checkout.address.zip + ', ' + checkout.address.country}</Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom className={classes.title}>
             Payment details
           </Typography>
           <Grid container>
-            {payments.map((payment) => (
-              <React.Fragment key={payment.name}>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.name}</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.detail}</Typography>
-                </Grid>
-              </React.Fragment>
-            ))}
+            <React.Fragment >
+              <Grid item xs={6}>
+                <Typography gutterBottom>Card Name:</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography gutterBottom>{checkout.payment.cardName}</Typography>
+              </Grid>
+            </React.Fragment>
+            <React.Fragment >
+              <Grid item xs={6}>
+                <Typography gutterBottom>Card Number:</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography gutterBottom>{checkout.payment.cardNumber}</Typography>
+              </Grid>
+            </React.Fragment>
+            <React.Fragment >
+              <Grid item xs={6}>
+                <Typography gutterBottom>Card Expiration Date:</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography gutterBottom>{checkout.payment.expDate}</Typography>
+              </Grid>
+            </React.Fragment>
+            <React.Fragment >
+              <Grid item xs={6}>
+                <Typography gutterBottom>Card CVV</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography gutterBottom>{checkout.payment.cvv}</Typography>
+              </Grid>
+            </React.Fragment>
           </Grid>
         </Grid>
       </Grid>

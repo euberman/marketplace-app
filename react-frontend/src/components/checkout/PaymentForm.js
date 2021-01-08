@@ -30,14 +30,14 @@ export default function PaymentForm() {
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
-          <TextField required id="cardName" name="cardName" label="Name on card (First Last)" fullWidth autoComplete="cc-name" value={payment.cardName} onChange={(e) => handleChange(e)}/>
+          <TextField required id="cardName" name="cardName" label="Name on card" fullWidth autoComplete="cc-name" value={payment.cardName} onChange={(e) => handleChange(e)}/>
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
             required
             id="cardNumber"
             name="cardNumber"
-            label="Card number (XXXX-XXXX-XXXX-XXXX)"
+            label="Card number"
             fullWidth
             value={payment.cardNumber}
             autoComplete="cc-number"
@@ -45,7 +45,7 @@ export default function PaymentForm() {
           />
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField required id="expDate" name="expDate" label="Expiry date (MM/DD/YY)" fullWidth value={payment.expDate} autoComplete="cc-exp" onChange={(e) => handleChange(e)}/>
+          <TextField required id="expDate" name="expDate" label="Expiry date" fullWidth value={payment.expDate} autoComplete="cc-exp" onChange={(e) => handleChange(e)}/>
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField

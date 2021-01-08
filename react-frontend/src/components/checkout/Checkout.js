@@ -1,5 +1,5 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -72,7 +72,13 @@ function getStepContent(step) {
 
 export default function Checkout() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
   const [activeStep, setActiveStep] = React.useState(0);
+
+  const currentCartItems = useSelector(state => state.shoppingCart.items)
+  const currentUser = useSelector(state => state.user.currentUser)
+  const currentCheckout = useSelector(state => state.checkout)
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -81,6 +87,67 @@ export default function Checkout() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+  useEffect(() => {
+    if (activeStep === steps.length){
+      // console.log("Put place order mechanic here")
+      // console.log(currentCartItems)
+      // console.log(currentCheckout)
+      // console.log(currentUser)
+      let nameString = [currentCheckout.address.firstname, currentCheckout.address.lastname].join(' ')
+      let paymentString = `VISA ⠀•••• ${currentCheckout.payment.cardNumber.split("-")[3]}`
+      let addressString = [currentCheckout.address.address1, currentCheckout.address.city, currentCheckout.address.state, currentCheckout.address.zip, currentCheckout.address.country].join(', ')
+
+      // let currentOrder
+
+      fetch('http://localhost:3000/orders', {
+        method: 'POST',
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+          user_id: currentUser.id,
+          payment: paymentString,
+          address: addressString,
+          shipped: false
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        currentCartItems.forEach(product => {
+          fetch('http://localhost:3000/order_items', {
+            method: 'POST',
+            headers: {
+              "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+              order_id: data.id,
+              product_id: product.product_id
+            })
+          })
+        })
+        dispatch({type: 'EMPTY_CART', cart: {
+          items: [],
+          subTotal: 0.00,
+          count: 0,
+          showModal: false
+        }})
+      })
+
+      // currentCartItems.forEach(product => {
+      //   fetch('http://localhost:3000/order_items', {
+      //     method: 'POST',
+      //     headers: {
+      //       "Content-type": "application/json"
+      //     },
+      //     body: JSON.stringify({
+      //       order_id: currentOrder.id,
+      //       product_id: 
+      //     })
+      //   })
+      // })
+    }
+  }, [activeStep])
 
   return (
     <React.Fragment>
