@@ -83,7 +83,16 @@ function SignupForm() {
       }
       setUser(tempUser)
       dispatch(signupNewUser(data))
+      setLocalCurrentUser(tempUser)
       history.push('/dashboard')
+      // let userExists = getLocalCurrentUser()
+      // // dispatch({type:'CLEAR_FORM'})
+  
+      // if (userExists){
+      //   console.log('userExists', userExists)
+      //   dispatch(login(userExists))
+      //   history.push('/dashboard')
+      // }
     })
   }
 

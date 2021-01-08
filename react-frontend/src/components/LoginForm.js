@@ -84,11 +84,11 @@ function LoginForm() {
     
   }
 
-  useEffect(() => {
-    if (getLocalCurrentUser()) {
-      // history.push('/dashboard')
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (getLocalCurrentUser()) {
+  //     // history.push('/dashboard')
+  //   }
+  // }, [])
 
   useEffect(() => {
     setUser(currentUser)
