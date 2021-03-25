@@ -58,9 +58,11 @@ function OrdersList() {
   
   rows = rows.filter(row => row.name === [currentUser.firstname, currentUser.lastname].join(' '))
 
+  rows.reverse()
   let rowsBackup = rows
   var d = new Date()
   rows = rows.filter(row => row.date.split("-")[2] === d.toString().split(" ")[2])
+
 
   const showMoreRows = (event) => {
     event.preventDefault()

@@ -14,13 +14,8 @@ class OrdersController < ApplicationController
     end
 
     def create
-        order = Order.new(order_params)
-        order.save
-        # shop1 = ShoppingCart.new(order_id: order[:id])
-        # shop1.save
-        # puts order.shopping_cart.shopping_cart_products
-        # orders = User.all
-        render json: order#s, except: [:created_at, :updated_at], include: [:reviews]
+        order = Order.create(order_params)
+        render json: order
     end
 
     # def update

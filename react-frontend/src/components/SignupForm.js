@@ -1,8 +1,6 @@
-//import React from 'react'
 import React, { useState, useEffect} from 'react';
 import {useSelector, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
-// import { Link } from "react-router-dom";
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -85,14 +83,6 @@ function SignupForm() {
       dispatch(signupNewUser(data))
       setLocalCurrentUser(tempUser)
       history.push('/dashboard')
-      // let userExists = getLocalCurrentUser()
-      // // dispatch({type:'CLEAR_FORM'})
-  
-      // if (userExists){
-      //   console.log('userExists', userExists)
-      //   dispatch(login(userExists))
-      //   history.push('/dashboard')
-      // }
     })
   }
 

@@ -174,12 +174,12 @@ function ProductPage() {
                               setProdRating(1)
                             }
                             
-                            let tempCustRating = ((prodRating * tempVar) + newRating) / tempNumRev
+                            // let tempCustRating = ((prodRating * tempVar) + newRating) / tempNumRev
 
-                            if (tempCustRating === NaN){
-                              tempCustRating = 1
-                            }
-                            setProdRating(tempCustRating)
+                            // if (tempCustRating === NaN){
+                            //   tempCustRating = 1
+                            // }
+                            // setProdRating(tempCustRating)
                             
                             fetch(`http://localhost:3000/products/${product.id}`, {
                               method: 'PATCH',
@@ -187,8 +187,7 @@ function ProductPage() {
                                 "Content-Type": "application/json"
                               },
                               body: JSON.stringify({
-                                num_reviews: tempNumRev,
-                                customer_rating: tempCustRating
+                                num_reviews: tempNumRev
                               })
                             })
                           }}
