@@ -169,12 +169,12 @@ export function SecondaryListItems() {
         </ListItemIcon>
         <ListItemText primary="Rating" id="search-target"/>
       </ListItem>
-      {/* <ListItem button onClick={(e) => handleSort(e)}>
+      <ListItem button onClick={(e) => handleSort(e)}>
         <ListItemIcon>
           <RssFeedIcon onClick={(e) => handleSortAlt(e)}/>
         </ListItemIcon>
         <ListItemText primary="Available Online" id="search-target"/>
-      </ListItem> */}
+      </ListItem>
       <ListItem>
         <div className={classes.search}>
             <div className={classes.searchIcon}>
