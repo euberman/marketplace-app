@@ -175,7 +175,7 @@ export function SecondaryListItems() {
         </ListItemIcon>
         <ListItemText primary="Available Online" id="search-target"/>
       </ListItem>
-      {/* <ListItem>
+      <ListItem>
         <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -193,7 +193,7 @@ export function SecondaryListItems() {
             />
             </form>
           </div>
-      </ListItem> */}
+      </ListItem>
 
       {/* <ListItem button>
         <ListItemIcon>
