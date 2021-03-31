@@ -139,7 +139,7 @@ function SignupForm() {
                           autoComplete="email"
                         />
                   </Grid>
-                  <Grid item xs={12}>
+                  {/* <Grid item xs={12}>
                         <TextField
                           variant="outlined"
                           required
@@ -150,12 +150,12 @@ function SignupForm() {
                           id="password"
                           autoComplete="current-password"
                         />
-                  </Grid>
+                  </Grid> */}
                 </Grid>
 
-                {/* <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} >
+                <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} >
                   Sign Up
-                </Button> */}
+                </Button>
 
                 <Grid container justify="flex-end">
                   <Grid item>
