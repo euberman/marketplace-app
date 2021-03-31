@@ -153,9 +153,9 @@ function SignupForm() {
                   </Grid>
                 </Grid>
 
-                <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} >
+                {/* <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} >
                   Sign Up
-                </Button>
+                </Button> */}
 
                 <Grid container justify="flex-end">
                   <Grid item>
